@@ -9,19 +9,20 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
-
+/**
+ * view model to control behavior and displayed information on the [com.mhp.showcase.fragment.HomeFragment]
+ */
 class HomeViewModel {
 
     val blocks: BehaviorSubject<ArrayList<BaseBlockView<*>>> = BehaviorSubject.create()
     val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     @Inject
-    protected lateinit var blockViewHelper: BlockViewHelper // needed to transform block information into actual block views
+    internal lateinit var blockViewHelper: BlockViewHelper // needed to transform block information into actual block views
     @Inject
-    protected lateinit var getBlocksNetworkService: GetBlocksNetworkService // the network to fetch the block information from the web
+    internal lateinit var getBlocksNetworkService: GetBlocksNetworkService // the network to fetch the block information from the web
     @Inject
-    protected lateinit var context: Context
-
+    internal lateinit var context: Context
 
     init {
         ShowcaseApplication.graph.inject(this)
@@ -29,9 +30,7 @@ class HomeViewModel {
             if (it) getBlocksNetworkService.blocks.subscribeBy(onNext = {
                 val blockViews: ArrayList<BaseBlockView<*>> = ArrayList()
                 for (singleBlock in it.blocks) {
-                    blockViewHelper.getBlockView(singleBlock, context)?.let { blockView ->
-                        blockViews.add(blockView)
-                    }
+                    blockViewHelper.getBlockView(singleBlock, context)?.let(blockViews::add)
                 }
                 blocks.onNext(blockViews)
             })

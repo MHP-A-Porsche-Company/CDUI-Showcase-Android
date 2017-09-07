@@ -18,10 +18,10 @@ open class HomeFragment : Fragment() {
 
     // The area to display the blocks in
     @ViewById(R.id.block_area)
-    protected lateinit var blockArea: LinearLayout
+    internal lateinit var blockArea: LinearLayout
     // The view model to get the values to display from
     @Inject
-    protected lateinit var homeViewModel: HomeViewModel
+    internal lateinit var homeViewModel: HomeViewModel
 
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
@@ -56,6 +56,7 @@ open class HomeFragment : Fragment() {
         // subscribe to new display information from the view model
         disposables.add(
                 homeViewModel.blocks.subscribeBy(onNext = {
+                    blockArea.removeAllViews()
                     for (blockView in it) {
                         blockArea.addView(blockView as View)
                     }

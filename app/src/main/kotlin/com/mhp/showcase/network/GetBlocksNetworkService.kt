@@ -14,14 +14,17 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import javax.inject.Inject
 
-open class GetBlocksNetworkService : NetworkService() {
+/**
+ * Network service to get the definition of blocks for the home screen
+ */
+class GetBlocksNetworkService : NetworkService() {
 
     private val TAG = GetBlocksNetworkService::class.java.simpleName
 
     @Inject
-    protected lateinit var requestQueue: RequestQueue
+    internal lateinit var requestQueue: RequestQueue
     @Inject
-    protected lateinit var gson: Gson
+    internal lateinit var gson: Gson
 
     init {
         ShowcaseApplication.graph.inject(this)
@@ -39,7 +42,7 @@ open class GetBlocksNetworkService : NetworkService() {
                 Response.Listener {
                     val blockResponse = gson.fromJson(it, BlockResponse::class.java)
                     e.onNext(blockResponse)
-                    Handler().postDelayed({ startRequesting(e) }, 5000)
+                    Handler().postDelayed({ startRequesting(e) }, 300)
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)

@@ -16,7 +16,7 @@ import org.androidannotations.annotations.ViewById
 open class MainActivity : Activity() {
 
     @ViewById(R.id.fragment_container)
-    protected lateinit var fragmentContainer: FrameLayout
+    internal lateinit var fragmentContainer: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

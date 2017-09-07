@@ -48,12 +48,12 @@ class ShowcaseModule {
     }
 
     @Provides
-    internal fun provideContext(): Context {
+    protected fun provideContext(): Context {
         return ShowcaseApplication.getContext()
     }
 
     @Provides
-    internal fun provideRequestQueue(context: Context): RequestQueue {
+    protected fun provideRequestQueue(context: Context): RequestQueue {
         val cache = DiskBasedCache(context.cacheDir, 1024 * 1024) // 1MB cap
         // Set up the network to use HttpURLConnection as the HTTP client.
         val network = BasicNetwork(HurlStack())
@@ -65,18 +65,18 @@ class ShowcaseModule {
     }
 
     @Provides
-    internal fun provideGetBlocksNetworkService(): GetBlocksNetworkService {
+    protected fun provideGetBlocksNetworkService(): GetBlocksNetworkService {
         return GetBlocksNetworkService()
     }
 
     @Provides
-    internal fun provideBlockViewHelper(): BlockViewHelper {
+    protected fun provideBlockViewHelper(): BlockViewHelper {
         return BlockViewHelper()
     }
 
 
     @Provides
-    internal fun provideHomeViewModel(): HomeViewModel {
+    protected fun provideHomeViewModel(): HomeViewModel {
         return HomeViewModel()
     }
 }
