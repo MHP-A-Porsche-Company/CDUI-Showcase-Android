@@ -3,6 +3,8 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.mhp.showcase">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".ShowcaseApplication"
         android:allowBackup="true"
