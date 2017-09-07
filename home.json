@@ -1,7 +1,7 @@
 {"blocks":
  [
    {"type": "Text",
-    "text": "bar"
+    "text": "foo"
    }
   ]
 }
