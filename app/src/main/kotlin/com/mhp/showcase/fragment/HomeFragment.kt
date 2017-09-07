@@ -1,42 +1,65 @@
 package com.mhp.showcase.fragment
 
 import android.app.Fragment
-import android.widget.TextView
+import android.view.View
+import android.widget.LinearLayout
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
-import com.mhp.showcase.network.GetBlocksNetworkService
-import com.mhp.showcase.util.Constants
+import com.mhp.showcase.model.view.HomeViewModel
+import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.ViewById
-import org.androidannotations.annotations.res.StringRes
 import javax.inject.Inject
-import javax.inject.Named
 
 @EFragment(R.layout.fragment_home)
 open class HomeFragment : Fragment() {
 
-    @ViewById(R.id.text)
-    protected lateinit var text: TextView
-
+    // The area to display the blocks in
+    @ViewById(R.id.block_area)
+    protected lateinit var blockArea: LinearLayout
+    // The view model to get the values to display from
     @Inject
-    protected lateinit var getBlocksNetworkService: GetBlocksNetworkService
+    protected lateinit var homeViewModel: HomeViewModel
 
-    @field:[Inject Named(Constants.BAR_KEY)]
-    lateinit var bar: String
+    // to keep track on the open subscriptions
+    private val disposables: ArrayList<Disposable> = ArrayList()
 
-    @StringRes(R.string.foo)
-    protected lateinit var foo: String
-
+    /**
+     * Gets called after the view is inflated and the references are bound to the code
+     */
     @AfterViews
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
-        text.text = foo + bar
         subscribeViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // tell the view model to update the values
+        homeViewModel.active.onNext(true)
+    }
+
+    override fun onPause() {
+        // tell the view model we're about to end -> no more updates needed
+        homeViewModel.active.onNext(false)
+        // clean up all pending subscriptions
+        for (singleDisposable in disposables) {
+            singleDisposable.dispose()
+        }
+        disposables.clear()
+        super.onPause()
+    }
+
     private fun subscribeViewModel() {
-        getBlocksNetworkService.blocks.subscribeBy { s -> text.text = s }
+        // subscribe to new display information from the view model
+        disposables.add(
+                homeViewModel.blocks.subscribeBy(onNext = {
+                    for (blockView in it) {
+                        blockArea.addView(blockView as View)
+                    }
+                })
+        )
     }
 }

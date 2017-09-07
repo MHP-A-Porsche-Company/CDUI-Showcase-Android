@@ -10,6 +10,9 @@ import com.android.volley.VolleyError
  * Base class for network communication. Builds and handles requests and delivers responses
  */
 abstract class NetworkService {
+
+    private val TAG = NetworkService::class.java.simpleName
+
     /**
      * 10 Minutes
      */
@@ -45,10 +48,5 @@ abstract class NetworkService {
             Log.w(TAG, "could not add header params", authFailureError)
         }
 
-    }
-
-    companion object {
-
-        private val TAG = NetworkService::class.java.simpleName
     }
 }
