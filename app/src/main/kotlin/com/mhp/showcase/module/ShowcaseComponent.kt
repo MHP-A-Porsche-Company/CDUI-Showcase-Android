@@ -7,7 +7,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 /**
- * Assigns references in activities, services, or fragments to have access to singletons earlier defined.
+ * Assigns references in activities, services, or fragments to have access to singletons previously defined.
  */
 @Singleton
 @Component(modules = arrayOf(ShowcaseModule::class))

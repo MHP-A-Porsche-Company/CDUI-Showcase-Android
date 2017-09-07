@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Network service to get the definition of blocks for the home screen
  */
-class GetBlocksNetworkService : NetworkService() {
+class GetBlocksNetworkService {
 
     private val TAG = GetBlocksNetworkService::class.java.simpleName
 
@@ -31,11 +31,12 @@ class GetBlocksNetworkService : NetworkService() {
     }
 
     val blocks: Observable<BlockResponse>
-        get() = Observable.create { e ->
-            startRequesting(e)
-        }
+        get() = Observable.create(this::startRequesting)
 
     private fun startRequesting(e: ObservableEmitter<BlockResponse>) {
+        if (e.isDisposed) {
+            return
+        }
         val jsObjRequest = StringRequest(
                 Request.Method.GET,
                 Constants.URL,

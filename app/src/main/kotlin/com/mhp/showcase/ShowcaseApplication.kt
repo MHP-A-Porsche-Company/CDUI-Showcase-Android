@@ -5,14 +5,15 @@ import android.util.Log
 import com.mhp.showcase.module.DaggerShowcaseComponent
 import com.mhp.showcase.module.ShowcaseComponent
 
-
+/**
+ * The [Application] class for the app. Initializes dependency injection and provides an instance of
+ * [android.content.Context]
+ */
 class ShowcaseApplication : Application() {
-    val TAG: String = ShowcaseApplication::class.java.simpleName
-
+    private val TAG: String = ShowcaseApplication::class.java.simpleName
 
     companion object {
-        //platformStatic allow access it from java code
-        @JvmStatic lateinit var graph: ShowcaseComponent
+        lateinit var graph: ShowcaseComponent
         lateinit var instance: ShowcaseApplication
         fun getContext(): ShowcaseApplication {
             return instance
@@ -28,5 +29,4 @@ class ShowcaseApplication : Application() {
     init {
         instance = this
     }
-
 }

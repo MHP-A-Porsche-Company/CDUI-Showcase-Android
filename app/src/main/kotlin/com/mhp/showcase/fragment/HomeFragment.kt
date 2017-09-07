@@ -45,20 +45,21 @@ open class HomeFragment : Fragment() {
         // tell the view model we're about to end -> no more updates needed
         homeViewModel.active.onNext(false)
         // clean up all pending subscriptions
-        for (singleDisposable in disposables) {
-            singleDisposable.dispose()
-        }
+        disposables.forEach(Disposable::dispose)
         disposables.clear()
         super.onPause()
     }
 
+    /**
+     * subscribe the view to the view model
+     */
     private fun subscribeViewModel() {
         // subscribe to new display information from the view model
         disposables.add(
                 homeViewModel.blocks.subscribeBy(onNext = {
                     blockArea.removeAllViews()
                     for (blockView in it) {
-                        blockArea.addView(blockView as View)
+                        blockArea.addView(blockView as View?)
                     }
                 })
         )

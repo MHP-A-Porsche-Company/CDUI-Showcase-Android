@@ -13,16 +13,13 @@ import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.model.view.HomeViewModel
 import com.mhp.showcase.network.GetBlocksNetworkService
 import com.mhp.showcase.util.BlockViewHelper
-import com.mhp.showcase.util.Constants
 import com.mhp.showcase.util.GsonBlockAdapter
 import dagger.Module
 import dagger.Provides
-import java.io.IOException
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-class ShowcaseModule {
+open class ShowcaseModule {
 
     private val TAG = ShowcaseModule::class.java.simpleName
 
@@ -32,19 +29,10 @@ class ShowcaseModule {
         val gsonBuilder = GsonBuilder()
         try {
             gsonBuilder.registerTypeAdapter(BaseBlock::class.java, GsonBlockAdapter())
-        } catch (e: IOException) {
-            Log.w(TAG, "error registering type adapter for GSON deserialization", e)
-        } catch (e: ClassNotFoundException) {
+        } catch (e: Throwable) {
             Log.w(TAG, "error registering type adapter for GSON deserialization", e)
         }
-
         return gsonBuilder.create()
-    }
-
-    @Provides
-    @Named(value = Constants.BAR_KEY)
-    protected fun provideBar(): String {
-        return "BAR"
     }
 
     @Provides
@@ -73,7 +61,6 @@ class ShowcaseModule {
     protected fun provideBlockViewHelper(): BlockViewHelper {
         return BlockViewHelper()
     }
-
 
     @Provides
     protected fun provideHomeViewModel(): HomeViewModel {
