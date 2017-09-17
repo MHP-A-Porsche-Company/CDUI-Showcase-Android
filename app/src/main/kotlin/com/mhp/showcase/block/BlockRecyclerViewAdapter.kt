@@ -60,7 +60,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock, View>() {
     fun setBlocks(blocks: List<BaseBlock>) {
         this.blocks = blocks
     }
-    
+
     override fun onBindViewHolder(holder: ViewWrapper<View>?, position: Int) {
         when (holder?.itemViewType) {
             0 -> {
