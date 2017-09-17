@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/block_background"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_default"
+                android:paddingEnd="@dimen/margin_default"
+                android:paddingStart="@dimen/margin_default"
+                android:paddingTop="@dimen/margin_default">
+
+    <com.mhp.showcase.view.UserView_
+        android:id="@+id/user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"/>
+
+    <com.mhp.showcase.view.FixedAspectBackendImageView
+        android:id="@+id/article_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user"
+        android:layout_margin="@dimen/margin_32"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:aspect="1.77778"/>
+
+    <TextView
+        android:id="@+id/headline"
+        style="@style/H1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/article_image"
+        android:textSize="@dimen/text_medium"/>
+
+
+    <TextView
+        android:id="@+id/subheadline"
+        style="@style/H2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headline"
+        android:textSize="@dimen/text_medium"/>
+
+</RelativeLayout>

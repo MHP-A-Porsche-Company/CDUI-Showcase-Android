@@ -5,8 +5,8 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.FrameLayout
 import com.mhp.showcase.R
-import com.mhp.showcase.fragment.HomeFragment
-import com.mhp.showcase.fragment.HomeFragment_
+import com.mhp.showcase.fragment.StreamFragment
+import com.mhp.showcase.fragment.StreamFragment_
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.androidannotations.annotations.ViewById
@@ -24,9 +24,9 @@ open class MainActivity : Activity() {
 
     @AfterViews
     fun afterViews() {
-        val homeFragment: HomeFragment = HomeFragment_.builder().build()
+        val streamFragment: StreamFragment = StreamFragment_.builder().build()
         val ft = fragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_container, homeFragment)
+        ft.replace(R.id.fragment_container, streamFragment)
         ft.commit()
     }
 }

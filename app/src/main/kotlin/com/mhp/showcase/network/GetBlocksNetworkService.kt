@@ -8,7 +8,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.google.gson.Gson
 import com.mhp.showcase.ShowcaseApplication
-import com.mhp.showcase.network.model.BlockResponse
+import com.mhp.showcase.network.model.ContentResponse
 import com.mhp.showcase.util.Constants
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
@@ -30,10 +30,10 @@ class GetBlocksNetworkService {
         ShowcaseApplication.graph.inject(this)
     }
 
-    val blocks: Observable<BlockResponse>
+    val blocks: Observable<ContentResponse>
         get() = Observable.create(this::startRequesting)
 
-    private fun startRequesting(e: ObservableEmitter<BlockResponse>) {
+    private fun startRequesting(e: ObservableEmitter<ContentResponse>) {
         if (e.isDisposed) {
             return
         }
@@ -41,9 +41,9 @@ class GetBlocksNetworkService {
                 Request.Method.GET,
                 Constants.URL,
                 Response.Listener {
-                    val blockResponse = gson.fromJson(it, BlockResponse::class.java)
+                    val blockResponse = gson.fromJson(it, ContentResponse::class.java)
                     e.onNext(blockResponse)
-                    Handler().postDelayed({ startRequesting(e) }, 300)
+                    Handler().postDelayed({ startRequesting(e) }, 1000)
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)

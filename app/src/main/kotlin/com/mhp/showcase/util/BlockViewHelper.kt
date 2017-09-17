@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.block.BaseBlockView
+import com.mhp.showcase.block.articlestream.ArticleStreamBlock
+import com.mhp.showcase.block.articlestream.ArticleStreamBlockView_
 import com.mhp.showcase.block.text.TextBlock
 import com.mhp.showcase.block.text.TextBlockView_
 
@@ -28,8 +30,12 @@ class BlockViewHelper {
         var blockView: BaseBlockView<*>? = null
         when (block) {
             is TextBlock -> blockView = TextBlockView_.build(block, context)
+            is ArticleStreamBlock -> blockView = ArticleStreamBlockView_.build(block, context)
             else -> Log.w(TAG, "Could not find view for block " + block.toString())
         }
+
+
+
         return blockView
     }
 }

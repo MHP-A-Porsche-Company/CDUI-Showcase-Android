@@ -3,7 +3,16 @@ package com.mhp.showcase.util
 
 import com.google.gson.*
 import com.mhp.showcase.block.BaseBlock
+import com.mhp.showcase.block.articlestream.ArticleStreamBlock
+import com.mhp.showcase.block.carousel.CarouselBlock
+import com.mhp.showcase.block.eventstream.EventStreamBlock
+import com.mhp.showcase.block.header.HeaderBlock
+import com.mhp.showcase.block.image.ImageBlock
+import com.mhp.showcase.block.imagestream.ImageStreamBlock
 import com.mhp.showcase.block.text.TextBlock
+import com.mhp.showcase.block.texthighlight.TextHighlightBlock
+import com.mhp.showcase.block.title.TitleBlock
+import com.mhp.showcase.block.user.UserBlock
 import java.io.IOException
 import java.lang.reflect.Type
 import java.util.*
@@ -19,7 +28,16 @@ constructor() : JsonSerializer<BaseBlock>, JsonDeserializer<BaseBlock> {
 
     init {
         // Declare types to be supported by the deserializer
-        blockClassesByName.put("Text", TextBlock::class.java)
+        blockClassesByName.put("articleStream", ArticleStreamBlock::class.java)
+        blockClassesByName.put("carousel", CarouselBlock::class.java)
+        blockClassesByName.put("eventStream", EventStreamBlock::class.java)
+        blockClassesByName.put("header", HeaderBlock::class.java)
+        blockClassesByName.put("url", ImageBlock::class.java)
+        blockClassesByName.put("imageStream", ImageStreamBlock::class.java)
+        blockClassesByName.put("text", TextBlock::class.java)
+        blockClassesByName.put("textHighlight", TextHighlightBlock::class.java)
+        blockClassesByName.put("title", TitleBlock::class.java)
+        blockClassesByName.put("user", UserBlock::class.java)
     }
 
     override fun serialize(src: BaseBlock, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {

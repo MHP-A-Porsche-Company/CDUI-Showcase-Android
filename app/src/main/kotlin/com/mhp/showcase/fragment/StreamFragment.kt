@@ -3,6 +3,7 @@ package com.mhp.showcase.fragment
 import android.app.Fragment
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.model.view.HomeViewModel
@@ -13,12 +14,14 @@ import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.ViewById
 import javax.inject.Inject
 
-@EFragment(R.layout.fragment_home)
-open class HomeFragment : Fragment() {
+@EFragment(R.layout.fragment_stream)
+open class StreamFragment : Fragment() {
 
     // The area to display the blocks in
     @ViewById(R.id.block_area)
     internal lateinit var blockArea: LinearLayout
+    @ViewById(R.id.title)
+    internal lateinit var titleTextView: TextView
     // The view model to get the values to display from
     @Inject
     internal lateinit var homeViewModel: HomeViewModel
@@ -63,5 +66,6 @@ open class HomeFragment : Fragment() {
                     }
                 })
         )
+        disposables.add(homeViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
     }
 }

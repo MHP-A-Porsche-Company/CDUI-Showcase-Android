@@ -11,11 +11,13 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Inject
 
 /**
- * view model to control behavior and displayed information on the [com.mhp.showcase.fragment.HomeFragment]
+ * view model to control behavior and displayed information on the [com.mhp.showcase.fragment.StreamFragment]
  */
 class HomeViewModel {
 
     internal val blocks: BehaviorSubject<List<BaseBlockView<*>>> = BehaviorSubject.create()
+    internal val title: BehaviorSubject<String> = BehaviorSubject.create()
+
     internal val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
     /** needed to transform [com.mhp.showcase.block.BaseBlock] information
      * into actual [com.mhp.showcase.block.BaseBlockView]s */
@@ -35,6 +37,7 @@ class HomeViewModel {
                 disposables.add(
                         getBlocksNetworkService.blocks.subscribeBy(onNext = {
                             val blockViews: ArrayList<BaseBlockView<*>> = ArrayList()
+                            title.onNext(it.header.title)
                             for (its in it.blocks) {
                                 // skip null values
                                 its?.let {
