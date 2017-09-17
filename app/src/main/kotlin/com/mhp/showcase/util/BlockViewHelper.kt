@@ -6,6 +6,10 @@ import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.block.BaseBlockView
 import com.mhp.showcase.block.articlestream.ArticleStreamBlock
 import com.mhp.showcase.block.articlestream.ArticleStreamBlockView_
+import com.mhp.showcase.block.eventstream.EventStreamBlock
+import com.mhp.showcase.block.eventstream.EventStreamBlockView_
+import com.mhp.showcase.block.imagestream.ImageStreamBlock
+import com.mhp.showcase.block.imagestream.ImageStreamBlockView_
 import com.mhp.showcase.block.text.TextBlock
 import com.mhp.showcase.block.text.TextBlockView_
 
@@ -29,8 +33,10 @@ class BlockViewHelper {
     fun getBlockView(block: BaseBlock, context: Context): BaseBlockView<*>? {
         var blockView: BaseBlockView<*>? = null
         when (block) {
-            is TextBlock -> blockView = TextBlockView_.build(block, context)
-            is ArticleStreamBlock -> blockView = ArticleStreamBlockView_.build(block, context)
+            is TextBlock -> blockView = TextBlockView_.build(context)
+            is ArticleStreamBlock -> blockView = ArticleStreamBlockView_.build(context)
+            is ImageStreamBlock -> blockView = ImageStreamBlockView_.build(context)
+            is EventStreamBlock -> blockView = EventStreamBlockView_.build(context)
             else -> Log.w(TAG, "Could not find view for block " + block.toString())
         }
 

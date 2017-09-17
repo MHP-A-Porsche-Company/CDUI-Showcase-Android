@@ -12,15 +12,20 @@ import org.androidannotations.annotations.ViewById
 
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_user)
-open class UserBlockView(override val block: UserBlock, context: Context) : RelativeLayout(context), BaseBlockView<UserBlock> {
+open class UserBlockView( context: Context) : RelativeLayout(context), BaseBlockView<UserBlock> {
 
 
     @ViewById(R.id.name)
     protected lateinit var nameTextView: TextView
 
+    override var block: UserBlock? = null
+        set(value) {
+            afterViews()
+        }
+
 
     @AfterViews
-    protected fun afterViews() {
-        nameTextView.text = block.user.name
+    override fun afterViews() {
+        nameTextView.text = block?.user?.name
     }
 }

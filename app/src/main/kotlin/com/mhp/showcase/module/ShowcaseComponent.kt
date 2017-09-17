@@ -1,5 +1,7 @@
 package com.mhp.showcase.module
 
+import com.mhp.showcase.block.BlockRecyclerViewAdapter
+import com.mhp.showcase.fragment.ArticleFragment
 import com.mhp.showcase.fragment.StreamFragment
 import com.mhp.showcase.model.view.HomeViewModel
 import com.mhp.showcase.network.GetBlocksNetworkService
@@ -17,4 +19,6 @@ interface ShowcaseComponent {
     fun inject(getBlocksNetworkService: GetBlocksNetworkService)
     fun inject(homeViewModel: HomeViewModel)
     fun inject(backendImageView: BackendImageView)
+    fun inject(articleFragment: ArticleFragment)
+    fun inject(blockRecyclerViewAdapter: BlockRecyclerViewAdapter)
 }

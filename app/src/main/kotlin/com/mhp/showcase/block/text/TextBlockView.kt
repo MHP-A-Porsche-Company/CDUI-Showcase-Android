@@ -15,7 +15,13 @@ import org.androidannotations.annotations.ViewById
  */
 @SuppressLint("ViewConstructor") // We only use one way to instantiate this class
 @EViewGroup(R.layout.view_block_text)
-open class TextBlockView(override val block: TextBlock, context: Context) : LinearLayout(context), BaseBlockView<TextBlock> {
+open class TextBlockView(context: Context) : LinearLayout(context), BaseBlockView<TextBlock> {
+
+    override var block: TextBlock? = null
+        set(value) {
+            field = value
+            afterViews()
+        }
 
     @ViewById(R.id.text)
     protected lateinit var textView: TextView
@@ -25,7 +31,7 @@ open class TextBlockView(override val block: TextBlock, context: Context) : Line
      * [ViewById] annotation.
      */
     @AfterViews
-    fun afterViews() {
-        textView.text = block.text
+    override fun afterViews() {
+        textView.text = block?.text
     }
 }

@@ -2,7 +2,7 @@ package com.mhp.showcase.model.view
 
 import android.content.Context
 import com.mhp.showcase.ShowcaseApplication
-import com.mhp.showcase.block.BaseBlockView
+import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.network.GetBlocksNetworkService
 import com.mhp.showcase.util.BlockViewHelper
 import io.reactivex.disposables.Disposable
@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 class HomeViewModel {
 
-    internal val blocks: BehaviorSubject<List<BaseBlockView<*>>> = BehaviorSubject.create()
+    internal val blocks: BehaviorSubject<List<BaseBlock>> = BehaviorSubject.create()
     internal val title: BehaviorSubject<String> = BehaviorSubject.create()
 
     internal val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
@@ -36,16 +36,16 @@ class HomeViewModel {
             if (it) {
                 disposables.add(
                         getBlocksNetworkService.blocks.subscribeBy(onNext = {
-                            val blockViews: ArrayList<BaseBlockView<*>> = ArrayList()
+                            val blocks: ArrayList<BaseBlock> = ArrayList()
                             title.onNext(it.header.title)
                             for (its in it.blocks) {
                                 // skip null values
                                 its?.let {
                                     // convert the blocks into views and add each view if not null
-                                    blockViewHelper.getBlockView(its, context)?.let(blockViews::add)
+                                   blocks.add(its)
                                 }
                             }
-                            blocks.onNext(blockViews)
+                            this.blocks.onNext(blocks)
                         }))
             } else {
                 disposables.forEach(Disposable::dispose)

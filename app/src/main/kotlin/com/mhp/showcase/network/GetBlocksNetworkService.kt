@@ -43,7 +43,7 @@ class GetBlocksNetworkService {
                 Response.Listener {
                     val blockResponse = gson.fromJson(it, ContentResponse::class.java)
                     e.onNext(blockResponse)
-                    Handler().postDelayed({ startRequesting(e) }, 1000)
+                    Handler().postDelayed({ startRequesting(e) }, 500)
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)
