@@ -2,6 +2,7 @@ package com.mhp.showcase.block.articlestream
 
 import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.model.network.User
+import java.net.URI
 
 
 data class ArticleStreamBlock(
@@ -10,8 +11,8 @@ data class ArticleStreamBlock(
         val imageUrl: String,
         val title: String,
         val subtitle: String,
-        val created: Long
-
+        val created: Long,
+        val target: URI
 
 ) : BaseBlock {
     override fun equals(other: Any?): Boolean {

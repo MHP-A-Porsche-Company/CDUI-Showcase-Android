@@ -1,9 +1,12 @@
 package com.mhp.showcase.module
 
+import com.mhp.showcase.activity.MainActivity
 import com.mhp.showcase.block.BlockRecyclerViewAdapter
+import com.mhp.showcase.block.articlestream.ArticleStreamBlockView
 import com.mhp.showcase.fragment.ArticleFragment
 import com.mhp.showcase.fragment.StreamFragment
 import com.mhp.showcase.model.view.HomeViewModel
+import com.mhp.showcase.navigation.DefaultRouter
 import com.mhp.showcase.network.GetBlocksNetworkService
 import com.mhp.showcase.view.BackendImageView
 import dagger.Component
@@ -21,4 +24,7 @@ interface ShowcaseComponent {
     fun inject(backendImageView: BackendImageView)
     fun inject(articleFragment: ArticleFragment)
     fun inject(blockRecyclerViewAdapter: BlockRecyclerViewAdapter)
+    fun inject(mainActivity: MainActivity)
+    fun inject(articleStreamBlockView: ArticleStreamBlockView)
+    fun inject(defaultRouter: DefaultRouter)
 }

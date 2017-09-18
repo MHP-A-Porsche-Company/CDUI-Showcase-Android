@@ -32,7 +32,7 @@ constructor() : JsonSerializer<BaseBlock>, JsonDeserializer<BaseBlock> {
         blockClassesByName.put("carousel", CarouselBlock::class.java)
         blockClassesByName.put("eventStream", EventStreamBlock::class.java)
         blockClassesByName.put("header", HeaderBlock::class.java)
-        blockClassesByName.put("url", ImageBlock::class.java)
+        blockClassesByName.put("image", ImageBlock::class.java)
         blockClassesByName.put("imageStream", ImageStreamBlock::class.java)
         blockClassesByName.put("text", TextBlock::class.java)
         blockClassesByName.put("textHighlight", TextHighlightBlock::class.java)

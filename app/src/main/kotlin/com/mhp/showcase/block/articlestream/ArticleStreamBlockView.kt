@@ -6,12 +6,16 @@ import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.mhp.showcase.R
+import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlockView
+import com.mhp.showcase.navigation.Router
 import com.mhp.showcase.view.BackendImageView
 import com.mhp.showcase.view.UserView
 import org.androidannotations.annotations.AfterViews
+import org.androidannotations.annotations.Click
 import org.androidannotations.annotations.EViewGroup
 import org.androidannotations.annotations.ViewById
+import javax.inject.Inject
 
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_article_stream)
@@ -32,10 +36,17 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
     protected lateinit var headline: TextView
     @ViewById(R.id.subheadline)
     protected lateinit var subHeadline: TextView
+    @Inject
+    protected lateinit var router: Router
 
     @AfterViews
     override fun afterViews() {
+        ShowcaseApplication.graph.inject(this)
+
         userView.user = block?.user
+        if (block == null) {
+            return
+        }
         if (block?.imageUrl == null) {
             articleImageView.setVisibility(View.GONE)
         } else {
@@ -59,6 +70,11 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
 
     override fun hashCode(): Int {
         return block?.hashCode() ?: 0
+    }
+
+    @Click(R.id.wrapper)
+    protected fun containerClicked(){
+        block?.target?.let { router.navigate(it) }
     }
 
 }

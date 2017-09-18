@@ -1,7 +1,6 @@
 package com.mhp.showcase.block
 
 import android.content.Context
-import android.view.View
 import android.view.ViewGroup
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.articlestream.ArticleStreamBlock
@@ -18,7 +17,7 @@ import com.mhp.showcase.block.util.ViewWrapper
 import java.util.*
 import javax.inject.Inject
 
-class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock, View>() {
+class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
 
     @Inject
     protected lateinit var context: Context
@@ -61,7 +60,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock, View>() {
         this.blocks = blocks
     }
 
-    override fun onBindViewHolder(holder: ViewWrapper<View>?, position: Int) {
+    override fun onBindViewHolder(holder: ViewWrapper<*>?, position: Int) {
         when (holder?.itemViewType) {
             0 -> {
                 val viewHolder1 = holder as EventStreamViewHolder

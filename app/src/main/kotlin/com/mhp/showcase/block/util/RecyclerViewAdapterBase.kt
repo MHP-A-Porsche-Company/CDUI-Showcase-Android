@@ -1,11 +1,9 @@
 package com.mhp.showcase.block.util
 
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import java.util.*
 
-abstract class RecyclerViewAdapterBase<T, V : View> : RecyclerView.Adapter<ViewWrapper<*>>() {
-
+abstract class RecyclerViewAdapterBase<T> : RecyclerView.Adapter<ViewWrapper<*>>() {
 
     /**
      * Set the items to be rendered
@@ -24,5 +22,4 @@ abstract class RecyclerViewAdapterBase<T, V : View> : RecyclerView.Adapter<ViewW
     override fun getItemCount(): Int {
         return this.items.size
     }
-
 }

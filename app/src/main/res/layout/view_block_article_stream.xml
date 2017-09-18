@@ -5,6 +5,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/block_background"
                 android:orientation="vertical"
+                android:id="@+id/wrapper"
                 android:paddingBottom="@dimen/margin_default"
                 android:paddingEnd="@dimen/margin_default"
                 android:paddingStart="@dimen/margin_default"
@@ -18,17 +19,18 @@
         android:orientation="vertical"/>
 
     <com.mhp.showcase.view.FixedAspectBackendImageView
+        android:layout_marginTop="@dimen/margin_32"
         android:id="@+id/article_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user"
-        android:layout_margin="@dimen/margin_32"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:aspect="1.77778"/>
 
     <TextView
         android:id="@+id/headline"
+        android:layout_marginTop="@dimen/margin_32"
         style="@style/H1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

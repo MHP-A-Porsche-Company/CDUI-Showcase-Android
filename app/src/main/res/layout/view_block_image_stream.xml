@@ -9,19 +9,21 @@
                 android:paddingTop="@dimen/margin_default">
 
     <com.mhp.showcase.view.UserView_
-        android:paddingEnd="@dimen/margin_default"
-        android:paddingStart="@dimen/margin_default"
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/white"
-        android:orientation="vertical"/>
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/margin_default"
+        android:paddingStart="@dimen/margin_default"/>
 
     <com.mhp.showcase.view.FixedAspectBackendImageView
         android:id="@+id/article_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/user"
+        android:layout_marginTop="@dimen/margin_32"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:aspect="1.77778"/>

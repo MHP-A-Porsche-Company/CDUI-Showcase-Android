@@ -11,6 +11,8 @@ import com.google.gson.GsonBuilder
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.model.view.HomeViewModel
+import com.mhp.showcase.navigation.Router
+import com.mhp.showcase.navigation.DefaultRouter
 import com.mhp.showcase.network.GetBlocksNetworkService
 import com.mhp.showcase.util.BlockViewHelper
 import com.mhp.showcase.util.GsonBlockAdapter
@@ -58,6 +60,7 @@ open class ShowcaseModule {
     }
 
     @Provides
+    @Singleton
     protected fun provideBlockViewHelper(): BlockViewHelper {
         return BlockViewHelper()
     }
@@ -65,5 +68,11 @@ open class ShowcaseModule {
     @Provides
     protected fun provideHomeViewModel(): HomeViewModel {
         return HomeViewModel()
+    }
+
+    @Provides
+    @Singleton
+    protected fun provideRouter(): Router{
+        return  DefaultRouter()
     }
 }

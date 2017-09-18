@@ -2,10 +2,10 @@ package com.mhp.showcase.fragment
 
 import android.app.Fragment
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
+import com.mhp.showcase.block.BlockRecyclerViewAdapter
 import com.mhp.showcase.model.view.HomeViewModel
 import com.mhp.showcase.view.FixedAspectBackendImageView
 import io.reactivex.disposables.Disposable
@@ -31,6 +31,9 @@ open class ArticleFragment : Fragment() {
 
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
+
+    private val adapter =  BlockRecyclerViewAdapter()
+
 
     /**
      * Gets called after the view is inflated and the references are bound to the code
@@ -60,13 +63,13 @@ open class ArticleFragment : Fragment() {
      * subscribe the view to the view model
      */
     private fun subscribeViewModel() {
+        blockArea.adapter = adapter
+
         // subscribe to new display information from the view model
         disposables.add(
                 homeViewModel.blocks.subscribeBy(onNext = {
-                    blockArea.removeAllViews()
-                    for (blockView in it) {
-                        blockArea.addView(blockView as View?)
-                    }
+                    adapter.setBlocks(it)
+                    adapter.notifyDataSetChanged()
                 })
         )
         disposables.add(homeViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
