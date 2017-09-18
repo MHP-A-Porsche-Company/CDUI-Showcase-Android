@@ -3,7 +3,7 @@ package com.mhp.showcase.model.view
 import android.content.Context
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlock
-import com.mhp.showcase.network.GetStreamNetworkService
+import com.mhp.showcase.network.GetArticleNetworkService
 import com.mhp.showcase.util.BlockViewHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * view model to control behavior and displayed information on the [com.mhp.showcase.fragment.StreamFragment]
  */
-class HomeViewModel {
+class ArticleViewModel {
 
     internal val blocks: BehaviorSubject<List<BaseBlock>> = BehaviorSubject.create()
     internal val title: BehaviorSubject<String> = BehaviorSubject.create()
@@ -25,7 +25,7 @@ class HomeViewModel {
     internal lateinit var blockViewHelper: BlockViewHelper
     /** the network to fetch the block information from the web*/
     @Inject
-    internal lateinit var getStreamNetworkService: GetStreamNetworkService
+    internal lateinit var getArticleNetworkService: GetArticleNetworkService
     @Inject
     internal lateinit var context: Context
     private val disposables: ArrayList<Disposable> = ArrayList()
@@ -35,14 +35,16 @@ class HomeViewModel {
         active.subscribe({
             if (it) {
                 disposables.add(
-                        getStreamNetworkService.blocks.subscribeBy(onNext = {
+                        getArticleNetworkService.blocks.subscribeBy(onNext = {
                             val blocks: ArrayList<BaseBlock> = ArrayList()
                             it.header.title?.let(title::onNext)
+                            
                             for (its in it.blocks) {
                                 // skip null values
                                 its?.let {
                                     // convert the blocks into views and add each view if not null
-                                   blocks.add(its)
+                                    if (its != null)
+                                        blocks.add(its)
                                 }
                             }
                             this.blocks.onNext(blocks)

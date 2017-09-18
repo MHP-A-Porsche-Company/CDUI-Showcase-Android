@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BlockRecyclerViewAdapter
-import com.mhp.showcase.model.view.HomeViewModel
+import com.mhp.showcase.model.view.ArticleViewModel
 import com.mhp.showcase.view.FixedAspectBackendImageView
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -28,7 +28,7 @@ open class ArticleFragment : Fragment() {
     internal lateinit var titleTextView: TextView
     // The view model to get the values to display from
     @Inject
-    internal lateinit var homeViewModel: HomeViewModel
+    internal lateinit var articleViewModel: ArticleViewModel
     @FragmentArg("ID")
     internal lateinit var id: String
 
@@ -50,12 +50,12 @@ open class ArticleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // tell the view model to update the values
-        homeViewModel.active.onNext(true)
+        articleViewModel.active.onNext(true)
     }
 
     override fun onPause() {
         // tell the view model we're about to end -> no more updates needed
-        homeViewModel.active.onNext(false)
+        articleViewModel.active.onNext(false)
         // clean up all pending subscriptions
         disposables.forEach(Disposable::dispose)
         disposables.clear()
@@ -70,11 +70,11 @@ open class ArticleFragment : Fragment() {
 
         // subscribe to new display information from the view model
         disposables.add(
-                homeViewModel.blocks.subscribeBy(onNext = {
+                articleViewModel.blocks.subscribeBy(onNext = {
                     adapter.setBlocks(it)
                     adapter.notifyDataSetChanged()
                 })
         )
-        disposables.add(homeViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
+        disposables.add(articleViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
     }
 }

@@ -17,9 +17,9 @@ import javax.inject.Inject
 /**
  * Network service to get the definition of blocks for the home screen
  */
-class GetBlocksNetworkService {
+class GetStreamNetworkService {
 
-    private val TAG = GetBlocksNetworkService::class.java.simpleName
+    private val TAG = GetStreamNetworkService::class.java.simpleName
 
     @Inject
     internal lateinit var requestQueue: RequestQueue
@@ -39,7 +39,7 @@ class GetBlocksNetworkService {
         }
         val jsObjRequest = StringRequest(
                 Request.Method.GET,
-                Constants.URL,
+                Constants.URL_STREAM,
                 Response.Listener {
                     val blockResponse = gson.fromJson(it, ContentResponse::class.java)
                     e.onNext(blockResponse)

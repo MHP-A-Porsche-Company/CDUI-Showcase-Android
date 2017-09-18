@@ -10,10 +10,12 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlock
+import com.mhp.showcase.model.view.ArticleViewModel
 import com.mhp.showcase.model.view.HomeViewModel
-import com.mhp.showcase.navigation.Router
 import com.mhp.showcase.navigation.DefaultRouter
-import com.mhp.showcase.network.GetBlocksNetworkService
+import com.mhp.showcase.navigation.Router
+import com.mhp.showcase.network.GetArticleNetworkService
+import com.mhp.showcase.network.GetStreamNetworkService
 import com.mhp.showcase.util.BlockViewHelper
 import com.mhp.showcase.util.GsonBlockAdapter
 import dagger.Module
@@ -55,8 +57,13 @@ open class ShowcaseModule {
     }
 
     @Provides
-    protected fun provideGetBlocksNetworkService(): GetBlocksNetworkService {
-        return GetBlocksNetworkService()
+    protected fun provideGetBlocksNetworkService(): GetStreamNetworkService {
+        return GetStreamNetworkService()
+    }
+
+    @Provides
+    protected fun getGetArticleNetworkService(): GetArticleNetworkService {
+        return GetArticleNetworkService()
     }
 
     @Provides
@@ -71,8 +78,14 @@ open class ShowcaseModule {
     }
 
     @Provides
-    @Singleton
-    protected fun provideRouter(): Router{
-        return  DefaultRouter()
+    protected fun provideArticleViewModel(): ArticleViewModel {
+        return ArticleViewModel()
     }
+
+    @Provides
+    @Singleton
+    protected fun provideRouter(): Router {
+        return DefaultRouter()
+    }
+
 }

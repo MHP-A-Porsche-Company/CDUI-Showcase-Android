@@ -12,8 +12,6 @@ import javax.inject.Inject
 
 
 class DefaultRouter : Router {
-
-
     @Inject
     protected lateinit var context: Context
 
