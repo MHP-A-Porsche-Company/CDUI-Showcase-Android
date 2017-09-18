@@ -12,6 +12,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EFragment
+import org.androidannotations.annotations.FragmentArg
 import org.androidannotations.annotations.ViewById
 import javax.inject.Inject
 
@@ -28,11 +29,13 @@ open class ArticleFragment : Fragment() {
     // The view model to get the values to display from
     @Inject
     internal lateinit var homeViewModel: HomeViewModel
+    @FragmentArg("ID")
+    internal lateinit var id: String
 
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
 
-    private val adapter =  BlockRecyclerViewAdapter()
+    private val adapter = BlockRecyclerViewAdapter()
 
 
     /**

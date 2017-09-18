@@ -6,11 +6,14 @@ import com.mhp.showcase.navigation.RouteFactory
 import java.net.URI
 
 class ArticleRouteFactory : RouteFactory<ArticleFragment> {
+
+    class ArticleRouteParams(val value: String) : RouteFactory.RouteParams
+
     override fun params(from: URI): RouteFactory.RouteParams? {
-        return null
+        return ArticleRouteParams(from.query.replace("id=", ""))
     }
 
     override fun build(params: RouteFactory.RouteParams?): ArticleFragment {
-        return ArticleFragment_.builder().build()
+        return ArticleFragment_.builder().id((params as ArticleRouteParams).value).build()
     }
 }
