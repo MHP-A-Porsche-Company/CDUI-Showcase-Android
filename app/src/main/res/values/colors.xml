@@ -8,4 +8,5 @@
 
     <color name="block_background">@color/white</color>
     <color name="colorTextDark">@color/colorPrimaryDark</color>
+    <color name="greyLighter">#dedede</color>
 </resources>

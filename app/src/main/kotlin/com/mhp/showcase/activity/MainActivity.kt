@@ -33,7 +33,7 @@ open class MainActivity : Activity(), Router.RouteTarget {
     }
 
     @AfterViews
-    protected fun afterViews(){
+    protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
         router.routeTarget = this // register the current class as route target
         router.routeFactories.put(Route.stream, StreamRouteFactory()) // register the stream as route
@@ -41,9 +41,14 @@ open class MainActivity : Activity(), Router.RouteTarget {
         router.navigate(Route.stream, null, Router.RouterTarget.navigation) // navigate to stream
     }
 
+    @SuppressLint("ResourceType")
     override fun showFragment(fragment: Fragment, animated: Boolean) {
-        val ft = fragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_container, fragment)
-        ft.commit()
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        if (animated) {
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        fragmentTransaction.replace(R.id.fragment_container, fragment)
+        fragmentTransaction.commit()
     }
 }
