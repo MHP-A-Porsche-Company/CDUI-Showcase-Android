@@ -4,7 +4,6 @@ import android.content.Context
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlock
 import com.mhp.showcase.network.GetStreamNetworkService
-import com.mhp.showcase.util.BlockViewHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
@@ -21,8 +20,6 @@ class HomeViewModel {
     internal val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
     /** needed to transform [com.mhp.showcase.block.BaseBlock] information
      * into actual [com.mhp.showcase.block.BaseBlockView]s */
-    @Inject
-    internal lateinit var blockViewHelper: BlockViewHelper
     /** the network to fetch the block information from the web*/
     @Inject
     internal lateinit var getStreamNetworkService: GetStreamNetworkService

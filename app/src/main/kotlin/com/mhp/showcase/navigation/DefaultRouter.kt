@@ -10,10 +10,13 @@ import com.mhp.showcase.util.Constants
 import java.net.URI
 import javax.inject.Inject
 
-
+/**
+ *  Actual implementation of [Router] that can be used to navigate to both external and internal targets
+ */
 class DefaultRouter : Router {
     @Inject
-    protected lateinit var context: Context
+    internal lateinit var context: Context
+
 
     override var routeFactories: HashMap<Route, RouteFactory<*>> = HashMap()
         get
@@ -24,7 +27,6 @@ class DefaultRouter : Router {
     override fun back(target: Router.RouterTarget) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 
     override fun navigate(url: URI) {
         if (url.scheme != Constants.APP_SCHEME) {

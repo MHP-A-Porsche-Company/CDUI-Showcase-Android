@@ -5,6 +5,9 @@ import com.mhp.showcase.fragment.ArticleFragment_
 import com.mhp.showcase.navigation.RouteFactory
 import java.net.URI
 
+/**
+ * Implementation of [RouteFactory] that can be used to navigate to [ArticleFragment]
+ */
 class ArticleRouteFactory : RouteFactory<ArticleFragment> {
 
     class ArticleRouteParams(val value: String) : RouteFactory.RouteParams

@@ -16,7 +16,6 @@ import com.mhp.showcase.navigation.DefaultRouter
 import com.mhp.showcase.navigation.Router
 import com.mhp.showcase.network.GetArticleNetworkService
 import com.mhp.showcase.network.GetStreamNetworkService
-import com.mhp.showcase.util.BlockViewHelper
 import com.mhp.showcase.util.GsonBlockAdapter
 import dagger.Module
 import dagger.Provides
@@ -67,12 +66,6 @@ open class ShowcaseModule {
     }
 
     @Provides
-    @Singleton
-    protected fun provideBlockViewHelper(): BlockViewHelper {
-        return BlockViewHelper()
-    }
-
-    @Provides
     protected fun provideHomeViewModel(): HomeViewModel {
         return HomeViewModel()
     }
@@ -87,5 +80,4 @@ open class ShowcaseModule {
     protected fun provideRouter(): Router {
         return DefaultRouter()
     }
-
 }

@@ -20,12 +20,10 @@ import javax.inject.Inject
 @EActivity(R.layout.activity_main)
 open class MainActivity : Activity(), Router.RouteTarget {
 
-
     @ViewById(R.id.fragment_container)
     internal lateinit var fragmentContainer: FrameLayout
-
     @Inject
-    lateinit var router: Router
+    internal lateinit var router: Router
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +46,7 @@ open class MainActivity : Activity(), Router.RouteTarget {
             fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         fragmentTransaction.replace(R.id.fragment_container, fragment)
-        
-        // Dont add the very first fragment to the back stack
+        // Don't add the very first fragment to the back stack
         if (fragmentContainer.getChildAt(0) != null) {
             // add all other views to the back stack
             fragmentTransaction.addToBackStack("foo")

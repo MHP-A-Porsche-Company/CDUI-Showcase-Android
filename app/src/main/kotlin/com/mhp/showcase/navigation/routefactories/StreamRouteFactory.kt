@@ -4,7 +4,9 @@ import com.mhp.showcase.fragment.StreamFragment
 import com.mhp.showcase.fragment.StreamFragment_
 import com.mhp.showcase.navigation.RouteFactory
 import java.net.URI
-
+/**
+ * Implementation of [RouteFactory] that can be used to navigate to [StreamFragment]
+ */
 class StreamRouteFactory : RouteFactory<StreamFragment> {
     override fun params(from: URI): RouteFactory.RouteParams? {
         return null

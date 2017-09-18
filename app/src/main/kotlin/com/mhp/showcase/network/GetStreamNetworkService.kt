@@ -15,7 +15,7 @@ import io.reactivex.ObservableEmitter
 import javax.inject.Inject
 
 /**
- * Network service to get the definition of blocks for the home screen
+ * Network service to get the definition of blocks for the stream screen
  */
 class GetStreamNetworkService {
 

@@ -20,11 +20,11 @@
 
         <com.mhp.showcase.view.FixedAspectBackendImageView
             android:id="@+id/hero"
-            app:aspect="1.77778"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:layout_height="wrap_content"/>
+            app:aspect="1.77778"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/block_area"

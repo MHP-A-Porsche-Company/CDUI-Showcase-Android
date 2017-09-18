@@ -3,6 +3,9 @@ package com.mhp.showcase.navigation
 import android.app.Fragment
 import java.net.URI
 
+/**
+ * Defines a factory
+ */
 interface RouteFactory<out T : Fragment> {
 
     interface RouteParams

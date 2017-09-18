@@ -26,10 +26,6 @@ class GetArticleNetworkService {
     @Inject
     internal lateinit var gson: Gson
 
-    init {
-        ShowcaseApplication.graph.inject(this)
-    }
-
     val blocks: Observable<ContentResponse>
         get() = Observable.create(this::startRequesting)
 
@@ -51,5 +47,9 @@ class GetArticleNetworkService {
                 }
         )
         requestQueue.add(jsObjRequest)
+    }
+
+    init {
+        ShowcaseApplication.graph.inject(this)
     }
 }
