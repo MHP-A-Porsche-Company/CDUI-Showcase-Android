@@ -47,8 +47,13 @@ open class MainActivity : Activity(), Router.RouteTarget {
         if (animated) {
             fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
         }
-
         fragmentTransaction.replace(R.id.fragment_container, fragment)
+        
+        // Dont add the very first fragment to the back stack
+        if (fragmentContainer.getChildAt(0) != null) {
+            // add all other views to the back stack
+            fragmentTransaction.addToBackStack("foo")
+        }
         fragmentTransaction.commit()
     }
 }
