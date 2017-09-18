@@ -8,7 +8,7 @@ import java.net.URI
 data class ArticleStreamBlock(
         val id: String,
         val user: User,
-        val imageUrl: String,
+        val imageUrl: URI,
         val title: String,
         val subtitle: String,
         val created: Long,

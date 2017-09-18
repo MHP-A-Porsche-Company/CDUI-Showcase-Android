@@ -2,6 +2,8 @@ package com.mhp.showcase.fragment
 
 import android.app.Fragment
 import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
@@ -32,6 +34,7 @@ open class ArticleFragment : Fragment() {
     @FragmentArg("ID")
     internal lateinit var id: String
 
+
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
 
@@ -45,6 +48,34 @@ open class ArticleFragment : Fragment() {
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
         subscribeViewModel()
+
+        heroImageView.addOnLayoutChangeListener({ _, _, top, _, bottom, _, _, _, _ ->
+            val height = bottom - top
+            if (height > 0) {
+                blockArea.setPadding(0, height, 0, 0)
+            }
+        })
+
+//        blockArea.setHasFixedSize(true)
+        blockArea.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                applyParallaxToHero(blockArea.computeVerticalScrollOffset())
+            }
+        })
+    }
+
+
+    private fun applyParallaxToHero(scrollY: Int) {
+        Log.w("Scrolling", "Value: " + scrollY)
+        val layoutParams = heroImageView.layoutParams as RelativeLayout.LayoutParams
+        var parallaxValue = (-0.5 * scrollY).toInt()
+        if (parallaxValue > 0) {
+            parallaxValue = 0
+        }
+        layoutParams.setMargins(0, parallaxValue, 0, 0)
+        heroImageView.layoutParams = layoutParams
+        heroImageView.invalidate()
+        heroImageView.requestLayout()
     }
 
     override fun onResume() {
@@ -76,5 +107,7 @@ open class ArticleFragment : Fragment() {
                 })
         )
         disposables.add(articleViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
+        disposables.add(articleViewModel.image.subscribeBy { uri -> this.heroImageView.url = uri })
     }
+
 }

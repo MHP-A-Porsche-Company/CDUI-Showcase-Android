@@ -8,6 +8,7 @@ import com.mhp.showcase.util.BlockViewHelper
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.BehaviorSubject
+import java.net.URI
 import javax.inject.Inject
 
 /**
@@ -17,6 +18,7 @@ class ArticleViewModel {
 
     internal val blocks: BehaviorSubject<List<BaseBlock>> = BehaviorSubject.create()
     internal val title: BehaviorSubject<String> = BehaviorSubject.create()
+    internal val image: BehaviorSubject<URI> = BehaviorSubject.create()
 
     internal val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
     /** needed to transform [com.mhp.showcase.block.BaseBlock] information
@@ -38,7 +40,9 @@ class ArticleViewModel {
                         getArticleNetworkService.blocks.subscribeBy(onNext = {
                             val blocks: ArrayList<BaseBlock> = ArrayList()
                             it.header.title?.let(title::onNext)
-                            
+                            it.header.imageUrl?.let(image::onNext)
+
+
                             for (its in it.blocks) {
                                 // skip null values
                                 its?.let {

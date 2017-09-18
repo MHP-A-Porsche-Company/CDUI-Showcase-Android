@@ -8,11 +8,12 @@ import android.widget.ImageView
 import com.koushikdutta.ion.Ion
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
+import java.net.URI
 
 open class BackendImageView(theContext: Context, attrs: AttributeSet?) : ImageView(theContext, attrs) {
 
 
-    var url: String? = null
+    var url: URI? = null
         set(url) {
             field = url
             viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
@@ -44,7 +45,7 @@ open class BackendImageView(theContext: Context, attrs: AttributeSet?) : ImageVi
         val drawable = context.getDrawable(R.drawable.image_placeholder) as GradientDrawable
         setImageDrawable(drawable)
         // actual request for the url
-        Ion.with(context).load(url)
+        Ion.with(context).load(url.toString())
                 // get the results as json
                 .asBitmap().setCallback({ _, result ->
             setImageBitmap(result)
