@@ -43,7 +43,7 @@ open class MainActivity : Activity(), Router.RouteTarget {
     override fun showFragment(fragment: Fragment, animated: Boolean) {
         val fragmentTransaction = fragmentManager.beginTransaction()
         if (animated) {
-            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+            fragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,R.anim.slide_in_left, R.anim.slide_out_right)
         }
         fragmentTransaction.replace(R.id.fragment_container, fragment)
         // Don't add the very first fragment to the back stack

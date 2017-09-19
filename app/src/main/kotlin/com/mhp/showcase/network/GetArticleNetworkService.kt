@@ -44,13 +44,14 @@ class GetArticleNetworkService {
                 Response.Listener {
                     val blockResponse = gson.fromJson(it.toString(), ContentResponse::class.java)
                     e.onNext(blockResponse)
-                    Handler().postDelayed({ startRequesting(id, e) }, 500)
+                    Handler().postDelayed({ startRequesting(id, e) }, 2000)
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)
                     e.onError(it)
                 }
         )
+        jsObjRequest.setShouldCache(false)
         requestQueue.add(jsObjRequest)
     }
 

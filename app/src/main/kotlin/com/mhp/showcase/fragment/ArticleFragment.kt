@@ -35,13 +35,13 @@ open class ArticleFragment : Fragment() {
     // The view model to get the values to display from
     @Inject
     internal lateinit var articleViewModel: ArticleViewModel
-    // The id of the article to de bisplayed
+    // The id of the article to de displayed
     @FragmentArg("ID")
     internal lateinit var id: String
-
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
     private val adapter = BlockRecyclerViewAdapter()
+    private var heroHeight: Int = 0
 
     override fun onResume() {
         super.onResume()
@@ -66,13 +66,13 @@ open class ArticleFragment : Fragment() {
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
         subscribeViewModel()
-
         // get the calculated height of the inflated title image
         heroImageView.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
             override fun onLayoutChange(view: View?, var1: Int, top: Int, var2: Int, bottom: Int, var3: Int, var4: Int, var5: Int, var6: Int) {
                 val height = bottom - top
                 if (height > 0) {
                     blockArea.setPadding(0, height, 0, 0)
+                    heroHeight = height
                     heroImageView.removeOnLayoutChangeListener(this)
                 }
             }
@@ -81,8 +81,10 @@ open class ArticleFragment : Fragment() {
         // apply a parallax effect to the title image when the content scrolls
         blockArea.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-//
-                applyParallaxToTitleImage(blockArea.computeVerticalScrollOffset())
+                if (blockArea != null) {
+                    val c: View = blockArea.getChildAt(0)
+                    applyParallaxToTitleImage((-c.top + blockArea.top + heroHeight))
+                }
             }
         })
     }
@@ -91,13 +93,17 @@ open class ArticleFragment : Fragment() {
      * Apply parallax effect to the title image
      */
     private fun applyParallaxToTitleImage(scrollY: Int) {
+        heroImageView.visibility =
+                when {scrollY > (-1 * heroHeight) -> View.GONE
+                    else -> View.VISIBLE
+                }
+
         Log.w("Scrolling", "Value: " + scrollY)
         val layoutParams = heroImageView.layoutParams as RelativeLayout.LayoutParams
-        var parallaxValue = (-0.5 * scrollY).toInt()
-        if (parallaxValue > 0) {
-            parallaxValue = 0
-        }
+        val parallaxValue = (-0.5 * scrollY).toInt()
         layoutParams.setMargins(0, parallaxValue, 0, 0)
+        Log.w("Scrolling", "parallax value: " + parallaxValue)
+
         heroImageView.layoutParams = layoutParams
     }
 

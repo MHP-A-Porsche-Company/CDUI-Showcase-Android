@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/block_background"
               android:orientation="vertical"
               android:paddingBottom="@dimen/margin_default"
               android:paddingEnd="@dimen/margin_default"
-              android:paddingTop="@dimen/margin_default"
-              android:paddingStart="@dimen/margin_default">
+              android:paddingStart="@dimen/margin_default"
+              android:paddingTop="@dimen/margin_default">
 
     <TextView
         android:id="@+id/text"
-        style="@style/H5"
+        style="@style/BOLD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/grey"
-        android:textSize="@dimen/text_medium"/>
-</LinearLayout>
+        android:textSize="20sp"/>
+
+</RelativeLayout>

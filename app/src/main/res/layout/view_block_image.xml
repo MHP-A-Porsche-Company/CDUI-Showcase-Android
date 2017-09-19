@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/block_background"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/margin_default"
+                android:paddingTop="@dimen/margin_default">
+
+    <com.mhp.showcase.view.FixedAspectBackendImageView
+        android:id="@+id/image"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:aspect="1"/>
+
+    <TextView
+        style="@style/H5"
+        android:textColor="@color/grey"
+        android:id="@+id/caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

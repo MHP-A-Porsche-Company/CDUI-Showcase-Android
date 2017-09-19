@@ -51,6 +51,7 @@ class GetStreamNetworkService {
                     e.onError(it)
                 }
         )
+        jsObjRequest.setShouldCache(false)
         requestQueue.add(jsObjRequest)
     }
 }

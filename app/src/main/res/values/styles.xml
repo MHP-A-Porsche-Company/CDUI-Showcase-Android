@@ -7,8 +7,8 @@
 
     </style>
 
-    <style name="TextMedium" parent="AppTheme">
-        <item name="android:fontFamily">@font/montserrat_bold</item>
+    <style name="TextMedium" >
+        <item name="android:fontFamily">@font/monserrat</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">14sp</item>
     </style>
@@ -42,6 +42,11 @@
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">11sp</item>
+    </style>
+    <style name="BOLD" parent="AppTheme">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

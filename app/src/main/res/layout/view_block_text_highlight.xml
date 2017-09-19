@@ -7,13 +7,13 @@
               android:paddingBottom="@dimen/margin_default"
               android:paddingEnd="@dimen/margin_default"
               android:paddingTop="@dimen/margin_default"
-              android:paddingStart="@dimen/margin_default">
+              android:paddingStart="@dimen/margin_32">
 
     <TextView
         android:id="@+id/text"
-        style="@style/H5"
+        style="@style/BOLD"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/grey"
+        android:textColor="@color/colorTextDark"
         android:textSize="@dimen/text_medium"/>
 </LinearLayout>
