@@ -9,10 +9,9 @@
               android:paddingTop="@dimen/margin_default"
               android:paddingStart="@dimen/margin_default">
 
-    <TextView
-        android:id="@+id/name"
+    <com.mhp.showcase.view.UserView_
+        android:id="@+id/userView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorTextDark"
-        android:textSize="@dimen/text_medium"/>
+        android:layout_height="wrap_content"/>
+
 </RelativeLayout>

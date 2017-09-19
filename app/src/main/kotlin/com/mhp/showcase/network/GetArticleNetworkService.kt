@@ -5,7 +5,7 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.network.model.ContentResponse
@@ -26,20 +26,25 @@ class GetArticleNetworkService {
     @Inject
     internal lateinit var gson: Gson
 
-    val blocks: Observable<ContentResponse>
-        get() = Observable.create(this::startRequesting)
 
-    private fun startRequesting(e: ObservableEmitter<ContentResponse>) {
+    fun getBlocks(id: String): Observable<ContentResponse> {
+        return Observable.create<ContentResponse>({ it ->
+            this.startRequesting(e = it, id = id)
+        })
+    }
+
+
+    private fun startRequesting(id: String, e: ObservableEmitter<ContentResponse>) {
         if (e.isDisposed) {
             return
         }
-        val jsObjRequest = StringRequest(
+        val jsObjRequest = JsonObjectRequest(
                 Request.Method.GET,
-                Constants.URL_ARTICLE,
+                Constants.URL_ARTICLE + "-" + id + ".json", null,
                 Response.Listener {
-                    val blockResponse = gson.fromJson(it, ContentResponse::class.java)
+                    val blockResponse = gson.fromJson(it.toString(), ContentResponse::class.java)
                     e.onNext(blockResponse)
-                    Handler().postDelayed({ startRequesting(e) }, 500)
+                    Handler().postDelayed({ startRequesting(id, e) }, 500)
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)

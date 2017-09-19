@@ -3,9 +3,9 @@ package com.mhp.showcase.block.user
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.RelativeLayout
-import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.block.BaseBlockView
+import com.mhp.showcase.view.UserView
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EViewGroup
 import org.androidannotations.annotations.ViewById
@@ -15,17 +15,18 @@ import org.androidannotations.annotations.ViewById
 open class UserBlockView( context: Context) : RelativeLayout(context), BaseBlockView<UserBlock> {
 
 
-    @ViewById(R.id.name)
-    protected lateinit var nameTextView: TextView
+    @ViewById(R.id.userView)
+    protected lateinit var userView: UserView
 
     override var block: UserBlock? = null
         set(value) {
+            field = value
             afterViews()
         }
 
 
     @AfterViews
     override fun afterViews() {
-        nameTextView.text = block?.user?.name
+        userView.user = block?.user
     }
 }

@@ -46,6 +46,7 @@ open class ArticleFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // tell the view model to update the values
+        articleViewModel.id = id
         articleViewModel.active.onNext(true)
     }
 
@@ -80,6 +81,7 @@ open class ArticleFragment : Fragment() {
         // apply a parallax effect to the title image when the content scrolls
         blockArea.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+//
                 applyParallaxToTitleImage(blockArea.computeVerticalScrollOffset())
             }
         })
@@ -97,8 +99,6 @@ open class ArticleFragment : Fragment() {
         }
         layoutParams.setMargins(0, parallaxValue, 0, 0)
         heroImageView.layoutParams = layoutParams
-        heroImageView.invalidate()
-        heroImageView.requestLayout()
     }
 
     /**

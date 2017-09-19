@@ -18,8 +18,12 @@ class ArticleViewModel {
     internal val blocks: BehaviorSubject<List<BaseBlock>> = BehaviorSubject.create()
     internal val title: BehaviorSubject<String> = BehaviorSubject.create()
     internal val image: BehaviorSubject<URI> = BehaviorSubject.create()
-
     internal val active: BehaviorSubject<Boolean> = BehaviorSubject.create()
+
+    var id: String? = null
+        get
+        set
+
     /** the network to fetch the block information from the web*/
     @Inject
     internal lateinit var getArticleNetworkService: GetArticleNetworkService
@@ -30,9 +34,9 @@ class ArticleViewModel {
     init {
         ShowcaseApplication.graph.inject(this)
         active.subscribe({
-            if (it) {
+            if (it && id != null) {
                 disposables.add(
-                        getArticleNetworkService.blocks.subscribeBy(onNext = {
+                        getArticleNetworkService.getBlocks(id!!).subscribeBy(onNext = {
                             val blocks: ArrayList<BaseBlock> = ArrayList()
                             it.header.title?.let(title::onNext)
                             it.header.imageUrl?.let(image::onNext)

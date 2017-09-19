@@ -5,7 +5,7 @@ import android.util.Log
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.network.model.ContentResponse
@@ -31,17 +31,18 @@ class GetStreamNetworkService {
     }
 
     val blocks: Observable<ContentResponse>
-        get() = Observable.create(this::startRequesting)
+        get() = Observable.create { it -> this.startRequesting(e = it) }
 
     private fun startRequesting(e: ObservableEmitter<ContentResponse>) {
         if (e.isDisposed) {
             return
         }
-        val jsObjRequest = StringRequest(
+
+        val jsObjRequest = JsonObjectRequest(
                 Request.Method.GET,
-                Constants.URL_STREAM,
+                Constants.URL_STREAM, null,
                 Response.Listener {
-                    val blockResponse = gson.fromJson(it, ContentResponse::class.java)
+                    val blockResponse = gson.fromJson(it.toString(), ContentResponse::class.java)
                     e.onNext(blockResponse)
                     Handler().postDelayed({ startRequesting(e) }, 500)
                 },
