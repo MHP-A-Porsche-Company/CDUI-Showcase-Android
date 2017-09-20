@@ -48,7 +48,6 @@ class GetArticleNetworkService {
                 },
                 Response.ErrorListener {
                     Log.d(TAG, "Network error occurred", it)
-                    e.onError(it)
                 }
         )
         jsObjRequest.setShouldCache(false)

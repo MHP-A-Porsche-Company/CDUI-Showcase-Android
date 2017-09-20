@@ -9,6 +9,8 @@ import com.mhp.showcase.block.BaseBlockView
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EViewGroup
 import org.androidannotations.annotations.ViewById
+import java.text.SimpleDateFormat
+import java.util.*
 
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_event_stream)
@@ -18,6 +20,8 @@ open class EventStreamBlockView(context: Context) : RelativeLayout(context), Bas
     protected lateinit var title: TextView
     @ViewById(R.id.subtitle)
     protected lateinit var subtitle: TextView
+    @ViewById(R.id.date)
+    protected lateinit var date: TextView
 
     override var block: EventStreamBlock? = null
         set(value) {
@@ -30,6 +34,8 @@ open class EventStreamBlockView(context: Context) : RelativeLayout(context), Bas
         if (block != null) {
             title.text = block?.title
             subtitle.text = block?.subtitle
+            val df = SimpleDateFormat("MMM dd, yyyy", Locale.ENGLISH)
+            date.text = df.format(Date(block?.date!!)).toUpperCase()
         }
     }
 

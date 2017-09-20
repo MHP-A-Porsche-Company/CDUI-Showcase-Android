@@ -2,7 +2,6 @@ package com.mhp.showcase.block.imagestream
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.View
 import android.widget.RelativeLayout
 import com.mhp.showcase.R
 import com.mhp.showcase.block.BaseBlockView
@@ -31,13 +30,10 @@ open class ImageStreamBlockView(context: Context) : RelativeLayout(context), Bas
     @AfterViews
     override fun afterViews() {
         userView.user = block?.user
-        if (block == null) {
-            return
-        }
-        if (block?.imageUrl == null) {
-            articleImageView.setVisibility(View.GONE)
-        } else {
-            articleImageView.url = block?.imageUrl
+        if (block != null) {
+            block?.imageUrl?.let {
+                articleImageView.url = block?.imageUrl
+            }
         }
     }
 

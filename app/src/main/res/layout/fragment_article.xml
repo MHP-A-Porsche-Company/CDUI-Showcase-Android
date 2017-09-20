@@ -11,10 +11,14 @@
         style="@style/H2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_20"
         android:background="@color/white"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:padding="@dimen/margin_8"
+        android:visibility="gone"/>
 
     <RelativeLayout
+        android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,11 +32,11 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/block_area"
+            android:paddingTop="@dimen/margin_8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:paddingTop="100dp"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
     </RelativeLayout>

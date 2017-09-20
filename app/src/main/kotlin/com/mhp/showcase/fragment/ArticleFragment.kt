@@ -1,8 +1,7 @@
 package com.mhp.showcase.fragment
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -74,6 +73,7 @@ open class ArticleFragment : Fragment() {
                     blockArea.setPadding(0, height, 0, 0)
                     heroHeight = height
                     heroImageView.removeOnLayoutChangeListener(this)
+                    heroImageView.visibility = View.GONE
                 }
             }
         })
@@ -83,7 +83,7 @@ open class ArticleFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 if (blockArea != null) {
                     val c: View = blockArea.getChildAt(0)
-                    applyParallaxToTitleImage((-c.top + blockArea.top + heroHeight))
+                    applyParallaxToTitleImage((-c.top + blockArea!!.top + heroHeight))
                 }
             }
         })
@@ -93,17 +93,9 @@ open class ArticleFragment : Fragment() {
      * Apply parallax effect to the title image
      */
     private fun applyParallaxToTitleImage(scrollY: Int) {
-        heroImageView.visibility =
-                when {scrollY > (-1 * heroHeight) -> View.GONE
-                    else -> View.VISIBLE
-                }
-
-        Log.w("Scrolling", "Value: " + scrollY)
         val layoutParams = heroImageView.layoutParams as RelativeLayout.LayoutParams
         val parallaxValue = (-0.5 * scrollY).toInt()
         layoutParams.setMargins(0, parallaxValue, 0, 0)
-        Log.w("Scrolling", "parallax value: " + parallaxValue)
-
         heroImageView.layoutParams = layoutParams
     }
 
@@ -111,7 +103,7 @@ open class ArticleFragment : Fragment() {
      * subscribe the view to the view model
      */
     private fun subscribeViewModel() {
-        blockArea.adapter = adapter
+        blockArea?.adapter = adapter
         // subscribe to new display information from the view model
         disposables.add(
                 articleViewModel.blocks.subscribeBy(onNext = {
@@ -119,7 +111,18 @@ open class ArticleFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 })
         )
-        disposables.add(articleViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
-        disposables.add(articleViewModel.image.subscribeBy { uri -> this.heroImageView.url = uri })
+        // subscribe to the title of the article
+        disposables.add(articleViewModel.title.subscribeBy {
+            this.titleTextView.text = it
+            if (it.isNotEmpty()) {
+                titleTextView.visibility = View.VISIBLE
+            }
+
+        })
+        // subscribe to the title image of the article
+        disposables.add(articleViewModel.image.subscribeBy {
+            this.heroImageView.visibility = View.VISIBLE
+            this.heroImageView.url = it
+        })
     }
 }

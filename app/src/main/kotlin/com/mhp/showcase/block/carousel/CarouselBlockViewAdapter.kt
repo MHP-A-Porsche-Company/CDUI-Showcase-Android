@@ -47,7 +47,7 @@ class CarouselBlockViewAdapter(context: Context,
         val titleText = item[position].title
         title.text = titleText
         val text = itemView.findViewById<TextView>(R.id.text)
-        val textText = item[position].title
+        val textText = item[position].text
         text.text = textText
         val imageView = itemView.findViewById<BackendImageView>(R.id.pagerImg)
         imageView.url = item[position].imageUrl

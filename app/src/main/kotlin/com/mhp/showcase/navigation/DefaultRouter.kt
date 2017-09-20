@@ -18,15 +18,12 @@ class DefaultRouter : Router {
     internal lateinit var context: Context
 
 
-    override var routeFactories: HashMap<Route, RouteFactory<*>> = HashMap()
+    override var spaceFactories: HashMap<Route, SpaceFactory<*>> = HashMap()
         get
         set(value) {}
 
     override var routeTarget: RouteTarget? = null
 
-    override fun back(target: Router.RouterTarget) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun navigate(url: URI) {
         if (url.scheme != Constants.APP_SCHEME) {
@@ -36,7 +33,7 @@ class DefaultRouter : Router {
             context.startActivity(i)
             return
         }
-        for ((key, value) in routeFactories) {
+        for ((key, value) in spaceFactories) {
             if (key.value == url.path.toString()) {
                 val fragment = value.build(value.params(url))
                 routeTarget?.showFragment(fragment, true)
@@ -45,8 +42,8 @@ class DefaultRouter : Router {
         }
     }
 
-    override fun navigate(route: Route, params: RouteFactory.RouteParams?, target: Router.RouterTarget) {
-        val routeFactory = routeFactories[route] ?: return
+    override fun navigate(route: Route, params: SpaceFactory.SpaceParams?, target: Router.RouterTarget) {
+        val routeFactory = spaceFactories[route] ?: return
         val fragment = routeFactory.build(params)
         routeTarget?.showFragment(fragment, true)
     }

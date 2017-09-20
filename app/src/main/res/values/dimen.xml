@@ -3,5 +3,6 @@
     <dimen name="margin_20">20dp</dimen>
     <dimen name="margin_32">32dp</dimen>
     <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
     <dimen name="text_medium">18sp</dimen>
 </resources>

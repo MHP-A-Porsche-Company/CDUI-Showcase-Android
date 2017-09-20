@@ -1,7 +1,8 @@
 package com.mhp.showcase.fragment
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
@@ -14,7 +15,7 @@ import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.ViewById
 import javax.inject.Inject
 
-@EFragment(R.layout.fragment_stream)
+@EFragment(R.layout.fragment_article)
 open class StreamFragment : Fragment() {
 
     // The area to display the blocks in
@@ -26,7 +27,7 @@ open class StreamFragment : Fragment() {
     @Inject
     internal lateinit var homeViewModel: HomeViewModel
 
-    private val adapter =  BlockRecyclerViewAdapter()
+    private val adapter = BlockRecyclerViewAdapter()
 
     // to keep track on the open subscriptions
     private val disposables: ArrayList<Disposable> = ArrayList()
@@ -37,13 +38,14 @@ open class StreamFragment : Fragment() {
     @AfterViews
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
-        subscribeViewModel()
     }
 
     override fun onResume() {
         super.onResume()
         // tell the view model to update the values
         homeViewModel.active.onNext(true)
+        subscribeViewModel()
+
     }
 
     override fun onPause() {
@@ -68,6 +70,12 @@ open class StreamFragment : Fragment() {
                     adapter.notifyDataSetChanged()
                 })
         )
-        disposables.add(homeViewModel.title.subscribeBy { title -> this.titleTextView.text = title })
+        disposables.add(homeViewModel.title.subscribeBy { title ->
+            this.titleTextView.text = title
+            if (title.isNotEmpty()) {
+                titleTextView.visibility = View.VISIBLE
+            }
+        })
+
     }
 }

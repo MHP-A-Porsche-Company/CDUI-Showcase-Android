@@ -2,7 +2,6 @@ package com.mhp.showcase.block.articlestream
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.View
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.mhp.showcase.R
@@ -36,6 +35,8 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
     protected lateinit var headline: TextView
     @ViewById(R.id.subheadline)
     protected lateinit var subHeadline: TextView
+    @ViewById(R.id.time)
+    protected lateinit var timeView: TextView
     @Inject
     protected lateinit var router: Router
 
@@ -47,14 +48,12 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
         if (block == null) {
             return
         }
-        if (block?.imageUrl == null) {
-            articleImageView.setVisibility(View.GONE)
-        } else {
-            articleImageView.url = block?.imageUrl
-        }
+        articleImageView.url = block?.imageUrl
         headline.text = block?.title
         headline.text = block?.title
         subHeadline.text = block?.subtitle
+
+        timeView.text = convertTimeToText(block?.created)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -73,7 +72,7 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
     }
 
     @Click(R.id.wrapper)
-    protected fun containerClicked(){
+    protected fun containerClicked() {
         block?.target?.let { router.navigate(it) }
     }
 

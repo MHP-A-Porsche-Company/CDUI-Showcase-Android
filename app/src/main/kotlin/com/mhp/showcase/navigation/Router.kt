@@ -1,6 +1,6 @@
 package com.mhp.showcase.navigation
 
-import android.app.Fragment
+import android.support.v4.app.Fragment
 import com.mhp.showcase.util.Constants
 import java.net.URI
 
@@ -11,9 +11,9 @@ import java.net.URI
 interface Router {
 
     /**
-     * The set of instances [RouteFactory] with matching instances of [Route] to navigate to internal targets
+     * The set of instances [SpaceFactory] with matching instances of [Route] to navigate to internal targets
      */
-    var routeFactories: HashMap<Route, RouteFactory<*>>
+    var spaceFactories: HashMap<Route, SpaceFactory<*>>
     var routeTarget: RouteTarget?
 
     /**
@@ -37,13 +37,11 @@ interface Router {
      * Navigate to an internal target using a [Route]. (e.g. an ID). The [Router.RouterTarget]
      *
      * @param route The [Route] defines the target
-     * @param params The optional [RouteFactory.RouteParams] can be used to deliver a payload.
+     * @param params The optional [SpaceFactory.SpaceParams] can be used to deliver a payload.
      * @param target The [Router.RouterTarget] controls in which container or context the container
      * the view gets inflated in
      */
-    fun navigate(route: Route, params: RouteFactory.RouteParams?, target: RouterTarget)
-
-    fun back(target: RouterTarget)
+    fun navigate(route: Route, params: SpaceFactory.SpaceParams?, target: RouterTarget)
 
     interface RouteTarget {
         fun showFragment(fragment: Fragment, animated: Boolean)

@@ -49,6 +49,8 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
 
     private var blocks: List<BaseBlock> = ArrayList()
 
+    // Definition of the different ViewHolders for each block type
+
     internal inner class ArticleStreamViewHolder(itemView: ArticleStreamBlockView) : ViewWrapper<ArticleStreamBlockView>(itemView)
     internal inner class CarouselViewHolder(itemView: CarouselBlockView) : ViewWrapper<CarouselBlockView>(itemView)
     internal inner class EventStreamViewHolder(itemView: EventStreamBlockView) : ViewWrapper<EventStreamBlockView>(itemView)
@@ -62,6 +64,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
 
 
     override fun getItemViewType(position: Int): Int {
+        // Get the right ViewType for the block type
         return when {
             blocks[position] is ArticleStreamBlock -> ViewType.ARTICLE_STREAM_BLOCK.value
             blocks[position] is CarouselBlock -> ViewType.CAROUSEL_BLOCK.value
@@ -82,6 +85,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewWrapper<*>? {
+        // Return the matching ViewHolder according to the block type
         return when (viewType) {
             ViewType.EVENT_STREAM_BLOCK.value -> EventStreamViewHolder(EventStreamBlockView_.build(context))
             ViewType.CAROUSEL_BLOCK.value -> CarouselViewHolder(CarouselBlockView_.build(context))
@@ -93,8 +97,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
             ViewType.TEXT_HIGHLIGHT_BLOCK.value -> TextHighlightViewHolder(TextHighlightBlockView_.build(context))
             ViewType.TITLE_BLOCK.value -> TitleViewHolder(TitleBlockView_.build(context))
             ViewType.USER_BLOCK.value -> UserViewHolder(UserBlockView_.build(context))
-
-            else -> EventStreamViewHolder(EventStreamBlockView_.build(context)) // TODO
+            else -> null
         }
     }
 
@@ -103,50 +106,25 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
     }
 
     override fun onBindViewHolder(holder: ViewWrapper<*>?, position: Int) {
+        // set the block value to the instance of BaseBlockView inside the ViewHolder according to
+        // the block type
         when (holder?.itemViewType) {
-            ViewType.ARTICLE_STREAM_BLOCK.value -> {
-                val viewHolder0 = holder as ArticleStreamViewHolder
-                viewHolder0.view.block = blocks[position] as ArticleStreamBlock
-            }
-            ViewType.CAROUSEL_BLOCK.value -> {
-                val viewHolder1 = holder as CarouselViewHolder
-                viewHolder1.view.block = blocks[position] as CarouselBlock
-            }
-            ViewType.EVENT_STREAM_BLOCK.value -> {
-                val viewHolder1 = holder as EventStreamViewHolder
-                viewHolder1.view.block = blocks[position] as EventStreamBlock
-            }
-            ViewType.HEADER_BLOCK.value -> {
-                val viewHolder0 = holder as HeaderViewHolder
-                viewHolder0.view.block = blocks[position] as HeaderBlock
-            }
-            ViewType.IMAGE_BLOCK.value -> {
-                val viewHolder0 = holder as ImageViewHolder
-                viewHolder0.view.block = blocks[position] as ImageBlock
-            }
-            ViewType.IMAGE_STREAM_BLOCK.value -> {
-                val viewHolder2 = holder as ImageStreamViewHolder
-                viewHolder2.view.block = blocks[position] as ImageStreamBlock
-            }
-            ViewType.TEXT_BLOCK.value -> {
-                val viewHolder0 = holder as TextViewHolder
-                viewHolder0.view.block = blocks[position] as TextBlock
-            }
-            ViewType.TEXT_HIGHLIGHT_BLOCK.value -> {
-                val viewHolder0 = holder as TextHighlightViewHolder
-                viewHolder0.view.block = blocks[position] as TextHighlightBlock
-            }
-            ViewType.TITLE_BLOCK.value -> {
-                val viewHolder0 = holder as TitleViewHolder
-                viewHolder0.view.block = blocks[position] as TitleBlock
-            }
-            ViewType.USER_BLOCK.value -> {
-                val viewHolder0 = holder as UserViewHolder
-                viewHolder0.view.block = blocks[position] as UserBlock
-            }
+            ViewType.ARTICLE_STREAM_BLOCK.value -> (holder as ArticleStreamViewHolder).view.block = blocks[position] as ArticleStreamBlock
+            ViewType.CAROUSEL_BLOCK.value -> (holder as CarouselViewHolder).view.block = blocks[position] as CarouselBlock
+            ViewType.EVENT_STREAM_BLOCK.value -> (holder as EventStreamViewHolder).view.block = blocks[position] as EventStreamBlock
+            ViewType.HEADER_BLOCK.value -> (holder as HeaderViewHolder).view.block = blocks[position] as HeaderBlock
+            ViewType.IMAGE_BLOCK.value -> (holder as ImageViewHolder).view.block = blocks[position] as ImageBlock
+            ViewType.IMAGE_STREAM_BLOCK.value -> (holder as ImageStreamViewHolder).view.block = blocks[position] as ImageStreamBlock
+            ViewType.TEXT_BLOCK.value -> (holder as TextViewHolder).view.block = blocks[position] as TextBlock
+            ViewType.TEXT_HIGHLIGHT_BLOCK.value -> (holder as TextHighlightViewHolder).view.block = blocks[position] as TextHighlightBlock
+            ViewType.TITLE_BLOCK.value -> (holder as TitleViewHolder).view.block = blocks[position] as TitleBlock
+            ViewType.USER_BLOCK.value -> (holder as UserViewHolder).view.block = blocks[position] as UserBlock
         }
     }
 
+    /**
+     * View types to be displayed inside the [android.support.v7.widget.RecyclerView]
+     */
     enum class ViewType(val value: Int) {
         ARTICLE_STREAM_BLOCK(2),
         EVENT_STREAM_BLOCK(0),

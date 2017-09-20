@@ -3,49 +3,66 @@
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:background="@drawable/white_ripple"
-                android:orientation="vertical"
-                android:id="@+id/wrapper"
-                android:paddingBottom="@dimen/margin_default"
-                android:paddingEnd="@dimen/margin_default"
-                android:paddingStart="@dimen/margin_default"
-                android:paddingTop="@dimen/margin_default"
-                android:focusable="true">
+                android:background="@color/grey">
 
-    <com.mhp.showcase.view.UserView_
-        android:id="@+id/user"
+    <RelativeLayout
+        android:id="@+id/wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"/>
+        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_8"
+        android:background="@drawable/white_ripple"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingBottom="@dimen/margin_default"
+        android:paddingEnd="@dimen/margin_default"
+        android:paddingStart="@dimen/margin_default"
+        android:paddingTop="@dimen/margin_default">
 
-    <com.mhp.showcase.view.FixedAspectBackendImageView
-        android:layout_marginTop="@dimen/margin_32"
-        android:id="@+id/article_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/user"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:aspect="1.77778"/>
+        <com.mhp.showcase.view.UserView_
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"/>
 
-    <TextView
-        android:id="@+id/headline"
-        android:layout_marginTop="@dimen/margin_32"
-        style="@style/H1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/article_image"
-        android:textSize="@dimen/text_medium"/>
+        <com.mhp.showcase.view.FixedAspectBackendImageView
+            android:id="@+id/article_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user"
+            android:layout_marginTop="@dimen/margin_32"
+            android:adjustViewBounds="true"
+            android:background="@color/greyLighter"
+            android:scaleType="centerCrop"
+            app:aspect="1.77778"/>
+
+        <TextView
+            android:id="@+id/headline"
+            style="@style/H1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_image"
+            android:layout_marginTop="@dimen/margin_32"
+            android:textSize="@dimen/text_medium"/>
 
 
-    <TextView
-        android:id="@+id/subheadline"
-        style="@style/H2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headline"
-        android:textSize="@dimen/text_medium"/>
+        <TextView
+            android:id="@+id/subheadline"
+            style="@style/H2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/headline"
+            android:layout_marginTop="@dimen/margin_20"
+            android:textSize="@dimen/text_medium"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/subheadline"
+            android:layout_marginTop="@dimen/margin_20"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>
