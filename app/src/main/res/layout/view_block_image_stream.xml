@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/grey">
+                android:background="@color/greyLight">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -36,6 +36,15 @@
             android:background="@color/colorPrimaryDark"
             android:scaleType="centerCrop"
             app:aspect="1.77778"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/article_image"
+            android:paddingEnd="@dimen/margin_default"
+            android:paddingStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_20"/>
 
     </RelativeLayout>
 </RelativeLayout>

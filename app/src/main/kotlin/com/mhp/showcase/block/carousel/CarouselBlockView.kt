@@ -4,6 +4,7 @@ package com.mhp.showcase.block.carousel
 import android.content.Context
 import android.support.v4.view.ViewPager
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.block.BaseBlockView
 import org.androidannotations.annotations.AfterViews
@@ -22,6 +23,8 @@ open class CarouselBlockView(context: Context) : LinearLayout(context), BaseBloc
 
     @ViewById(R.id.carousel)
     protected lateinit var pager: ViewPager
+    @ViewById(R.id.text)
+    protected lateinit var title: TextView
     private var adapter: CarouselBlockViewAdapter? = null
 
     /**
@@ -33,10 +36,11 @@ open class CarouselBlockView(context: Context) : LinearLayout(context), BaseBloc
         if (this.block == null) {
             return
         }
+        title.text = block!!.title
         adapter = CarouselBlockViewAdapter(context, this.block!!.items)
-        pager!!.clipToPadding = false
+        pager.clipToPadding = false
         val defaultMargin = resources.getDimensionPixelOffset(R.dimen.margin_default)
-        pager!!.pageMargin = defaultMargin
-        pager!!.adapter = adapter
+        pager.pageMargin = defaultMargin
+        pager.adapter = adapter
     }
 }

@@ -3,6 +3,7 @@ package com.mhp.showcase.block.imagestream
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.mhp.showcase.R
 import com.mhp.showcase.block.BaseBlockView
 import com.mhp.showcase.view.BackendImageView
@@ -19,6 +20,8 @@ open class ImageStreamBlockView(context: Context) : RelativeLayout(context), Bas
     protected lateinit var userView: UserView
     @ViewById(R.id.article_image)
     protected lateinit var articleImageView: BackendImageView
+    @ViewById(R.id.time)
+    protected lateinit var timeView: TextView
 
 
     override var block: ImageStreamBlock? = null
@@ -34,6 +37,7 @@ open class ImageStreamBlockView(context: Context) : RelativeLayout(context), Bas
             block?.imageUrl?.let {
                 articleImageView.url = block?.imageUrl
             }
+            timeView.text = convertTimeToText(block?.created)
         }
     }
 
