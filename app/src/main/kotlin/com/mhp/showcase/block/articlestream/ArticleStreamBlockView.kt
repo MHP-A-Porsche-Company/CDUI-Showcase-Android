@@ -19,7 +19,9 @@ import javax.inject.Inject
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_article_stream)
 open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), BaseBlockView<ArticleStreamBlock> {
-
+    override val interfaceContext: Context
+        get() = context
+    
     override var block: ArticleStreamBlock? = null
         set(value) {
             field = value

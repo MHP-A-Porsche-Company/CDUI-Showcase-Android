@@ -13,6 +13,8 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_user)
 open class UserBlockView( context: Context) : RelativeLayout(context), BaseBlockView<UserBlock> {
+    override val interfaceContext: Context
+        get() = context
 
 
     @ViewById(R.id.userView)

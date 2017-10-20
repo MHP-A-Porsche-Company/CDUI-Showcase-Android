@@ -17,6 +17,8 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor") // We only use one way to instantiate this class
 @EViewGroup(R.layout.view_block_title)
 open class TitleBlockView(context: Context) : RelativeLayout(context), BaseBlockView<TitleBlock> {
+    override val interfaceContext: Context
+        get() = context
 
     override var block: TitleBlock? = null
         set(value) {

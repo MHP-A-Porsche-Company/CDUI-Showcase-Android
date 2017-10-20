@@ -14,6 +14,8 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_image)
 open class ImageBlockView(context: Context) : RelativeLayout(context), BaseBlockView<ImageBlock> {
+    override val interfaceContext: Context
+        get() = context
 
     @ViewById(R.id.caption)
     protected lateinit var text: TextView

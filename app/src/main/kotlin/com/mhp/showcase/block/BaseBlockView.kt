@@ -1,5 +1,8 @@
 package com.mhp.showcase.block
 
+import android.content.Context
+import com.mhp.showcase.R
+import java.lang.String.format
 import java.util.*
 
 /**
@@ -9,28 +12,36 @@ interface BaseBlockView<T : BaseBlock> {
 
     var block: T?
 
+    val interfaceContext: Context
+
     fun afterViews()
 
     fun convertTimeToText(time: Long?): String? {
         if (time == null)
             return null
 
-        if (getYearsBetween(time) > 0) {
-            return getYearsBetween(time).toString() + " years ago"
+        if (getYearsBetween(time) > 1) {
+            return format(interfaceContext.getString(R.string.block_view_years_ago),
+                    getYearsBetween(time).toString())
         }
-        if (getMonthsBetween(time) > 0) {
-            return getMonthsBetween(time).toString() + " months ago "
+        if (getMonthsBetween(time) > 1) {
+            return format(interfaceContext.getString(R.string.block_view_months_ago),
+                    getMonthsBetween(time).toString())
         }
-        if (getDaysBetween(time) > 0) {
-            return getDaysBetween(time).toString() + " days ago"
+        if (getDaysBetween(time) > 1) {
+            return format(interfaceContext.getString(R.string.block_view_days_ago),
+                    getDaysBetween(time).toString())
         }
-        if (getHoursBetween(time) > 0) {
-            return getHoursBetween(time).toString() + " hours ago"
+        if (getHoursBetween(time) > 1) {
+            return format(interfaceContext.getString(R.string.block_view_hours_ago),
+                    getHoursBetween(time).toString())
         }
-        if (getMinutesBetween(time) > 0) {
-            return "Vor " + getMinutesBetween(time) + " minutes ago"
+        if (getMinutesBetween(time) > 1) {
+            return format(interfaceContext.getString(R.string.block_view_minutes_ago),
+                    getMinutesBetween(time).toString())
         }
-        return "Vor " + getSecondsBetween(time) + " seconds ago"
+        return format(interfaceContext.getString(R.string.block_view_seconds_ago),
+                getSecondsBetween(time).toString())
     }
 
     private fun getYearsBetween(time: Long): Int {
@@ -45,7 +56,6 @@ interface BaseBlockView<T : BaseBlock> {
         return ((Date().time - time) / (24 * 60 * 60 * 1000)).toInt()
     }
 
-
     private fun getHoursBetween(time: Long): Int {
         return ((Date().time - time) / (60 * 60 * 1000)).toInt()
     }
@@ -57,6 +67,4 @@ interface BaseBlockView<T : BaseBlock> {
     private fun getSecondsBetween(time: Long): Int {
         return ((Date().time - time) / (1000)).toInt()
     }
-
-
 }

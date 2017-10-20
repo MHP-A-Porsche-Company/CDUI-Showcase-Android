@@ -15,6 +15,8 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_image_stream)
 open class ImageStreamBlockView(context: Context) : RelativeLayout(context), BaseBlockView<ImageStreamBlock> {
+    override val interfaceContext: Context
+        get() = context
 
     @ViewById(R.id.user)
     protected lateinit var userView: UserView

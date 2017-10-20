@@ -14,6 +14,8 @@ import org.androidannotations.annotations.ViewById
 
 @EViewGroup(R.layout.view_block_carousel)
 open class CarouselBlockView(context: Context) : LinearLayout(context), BaseBlockView<CarouselBlock> {
+    override val interfaceContext: Context
+        get() = context
 
     override var block: CarouselBlock? = null
         set(carouselBlock) {
