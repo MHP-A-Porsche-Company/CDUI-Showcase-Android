@@ -6,7 +6,7 @@ import java.net.URI
 
 
 data class ArticleStreamBlock(
-        val id: String,
+        override val id: String,
         val user: User,
         val imageUrl: URI,
         val title: String,
@@ -15,17 +15,17 @@ data class ArticleStreamBlock(
         val target: URI
 
 ) : BaseBlock {
-    override fun equals(other: Any?): Boolean {
-        return super.equals(other)
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + user.hashCode()
-        result = 31 * result + imageUrl.hashCode()
-        result = 31 * result + title.hashCode()
-        result = 31 * result + subtitle.hashCode()
-        result = 31 * result + created.hashCode()
-        return result
-    }
+//    override fun equals(other: Any?): Boolean {
+//        return super.equals(other)
+//    }
+//
+//    override fun hashCode(): Int {
+//        var result = id.hashCode()
+//        result = 31 * result + user.hashCode()
+//        result = 31 * result + imageUrl.hashCode()
+//        result = 31 * result + title.hashCode()
+//        result = 31 * result + subtitle.hashCode()
+//        result = 31 * result + created.hashCode()
+//        return result
+//    }
 }

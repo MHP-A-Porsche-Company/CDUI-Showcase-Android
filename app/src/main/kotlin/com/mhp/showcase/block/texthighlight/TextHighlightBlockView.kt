@@ -17,8 +17,6 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor") // We only use one way to instantiate this class
 @EViewGroup(R.layout.view_block_text_highlight)
 open class TextHighlightBlockView(context: Context) : LinearLayout(context), BaseBlockView<TextHighlightBlock> {
-    override val interfaceContext: Context
-        get() = context
 
     override var block: TextHighlightBlock? = null
         set(value) {

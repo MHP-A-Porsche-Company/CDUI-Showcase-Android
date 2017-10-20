@@ -12,35 +12,33 @@ interface BaseBlockView<T : BaseBlock> {
 
     var block: T?
 
-    val interfaceContext: Context
-
     fun afterViews()
 
-    fun convertTimeToText(time: Long?): String? {
+    fun convertTimeToText(time: Long?, context: Context): String? {
         if (time == null)
             return null
 
         if (getYearsBetween(time) > 1) {
-            return format(interfaceContext.getString(R.string.block_view_years_ago),
+            return format(context.getString(R.string.block_view_years_ago),
                     getYearsBetween(time).toString())
         }
         if (getMonthsBetween(time) > 1) {
-            return format(interfaceContext.getString(R.string.block_view_months_ago),
+            return format(context.getString(R.string.block_view_months_ago),
                     getMonthsBetween(time).toString())
         }
         if (getDaysBetween(time) > 1) {
-            return format(interfaceContext.getString(R.string.block_view_days_ago),
+            return format(context.getString(R.string.block_view_days_ago),
                     getDaysBetween(time).toString())
         }
         if (getHoursBetween(time) > 1) {
-            return format(interfaceContext.getString(R.string.block_view_hours_ago),
+            return format(context.getString(R.string.block_view_hours_ago),
                     getHoursBetween(time).toString())
         }
         if (getMinutesBetween(time) > 1) {
-            return format(interfaceContext.getString(R.string.block_view_minutes_ago),
+            return format(context.getString(R.string.block_view_minutes_ago),
                     getMinutesBetween(time).toString())
         }
-        return format(interfaceContext.getString(R.string.block_view_seconds_ago),
+        return format(context.getString(R.string.block_view_seconds_ago),
                 getSecondsBetween(time).toString())
     }
 

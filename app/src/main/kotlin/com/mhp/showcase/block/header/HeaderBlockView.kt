@@ -13,8 +13,6 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_header)
 open class HeaderBlockView(context: Context) : RelativeLayout(context), BaseBlockView<HeaderBlock> {
-    override val interfaceContext: Context
-        get() = context
 
     @ViewById(R.id.title)
     protected lateinit var title: TextView

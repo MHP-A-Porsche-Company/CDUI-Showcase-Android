@@ -19,9 +19,7 @@ import javax.inject.Inject
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_article_stream)
 open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), BaseBlockView<ArticleStreamBlock> {
-    override val interfaceContext: Context
-        get() = context
-    
+
     override var block: ArticleStreamBlock? = null
         set(value) {
             field = value
@@ -55,7 +53,7 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
         headline.text = block?.title
         subHeadline.text = block?.subtitle
 
-        timeView.text = convertTimeToText(block?.created)
+        timeView.text = convertTimeToText(block?.created, context)
     }
 
     override fun equals(other: Any?): Boolean {

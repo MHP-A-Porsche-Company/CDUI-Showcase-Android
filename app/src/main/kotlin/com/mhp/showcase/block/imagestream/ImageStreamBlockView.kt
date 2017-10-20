@@ -15,8 +15,6 @@ import org.androidannotations.annotations.ViewById
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_image_stream)
 open class ImageStreamBlockView(context: Context) : RelativeLayout(context), BaseBlockView<ImageStreamBlock> {
-    override val interfaceContext: Context
-        get() = context
 
     @ViewById(R.id.user)
     protected lateinit var userView: UserView
@@ -39,7 +37,7 @@ open class ImageStreamBlockView(context: Context) : RelativeLayout(context), Bas
             block?.imageUrl?.let {
                 articleImageView.url = block?.imageUrl
             }
-            timeView.text = convertTimeToText(block?.created)
+            timeView.text = convertTimeToText(block?.created, context)
         }
     }
 

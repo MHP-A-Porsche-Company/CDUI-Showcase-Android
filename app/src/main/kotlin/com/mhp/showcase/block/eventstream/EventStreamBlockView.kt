@@ -15,8 +15,6 @@ import java.util.*
 @SuppressLint("ViewConstructor")
 @EViewGroup(R.layout.view_block_event_stream)
 open class EventStreamBlockView(context: Context) : RelativeLayout(context), BaseBlockView<EventStreamBlock> {
-    override val interfaceContext: Context
-        get() = context
 
     @ViewById(R.id.title)
     protected lateinit var title: TextView
