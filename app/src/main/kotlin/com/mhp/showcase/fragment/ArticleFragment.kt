@@ -107,8 +107,7 @@ open class ArticleFragment : Fragment() {
         // subscribe to new display information from the view model
         disposables.add(
                 articleViewModel.blocks.subscribeBy(onNext = {
-                    adapter.setBlocks(it)
-                    adapter.notifyDataSetChanged()
+                    adapter.updateList(it)
                 })
         )
         // subscribe to the title of the article

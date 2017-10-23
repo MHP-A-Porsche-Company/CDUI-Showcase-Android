@@ -75,6 +75,5 @@ open class StreamFragment : Fragment() {
                 titleTextView.visibility = View.VISIBLE
             }
         })
-
     }
 }
