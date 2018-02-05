@@ -1,6 +1,7 @@
 package com.mhp.showcase.block
 
 import android.content.Context
+import android.support.v7.util.DiffUtil
 import android.view.ViewGroup
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.articlestream.ArticleStreamBlock
@@ -137,4 +138,29 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
         TITLE_BLOCK(8),
         USER_BLOCK(9),
     }
+
+    class MyDiffCallback(private var oldBlocks: List<BaseBlock> = ArrayList(), private var newBlocks: List<BaseBlock> = ArrayList()) : DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldBlocks[oldItemPosition].id == newBlocks[newItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldBlocks.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newBlocks.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldBlocks[oldItemPosition] == newBlocks[newItemPosition]
+        }
+    }
+
+    fun updateList(blocks: List<BaseBlock>) {
+        val diffResult = DiffUtil.calculateDiff(MyDiffCallback(this.blocks, blocks))
+        this.blocks = blocks
+        diffResult.dispatchUpdatesTo(this)
+    }
+
 }

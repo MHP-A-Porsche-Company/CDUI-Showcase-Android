@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Showcase</string>
+    <string name="foo">Foo</string>
+    <string name="block_view_years_ago">Vor %s Jahren</string>
+    <string name="block_view_months_ago">Vor %s Monaten</string>
+    <string name="block_view_days_ago">Vor %s Tagen</string>
+    <string name="block_view_hours_ago">Vor %s Stunden</string>
+    <string name="block_view_minutes_ago">Vor %s Minuten</string>
+    <string name="block_view_seconds_ago">Vor %s Sekunden</string>
+</resources>

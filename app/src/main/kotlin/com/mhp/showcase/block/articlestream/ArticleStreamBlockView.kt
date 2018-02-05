@@ -53,7 +53,7 @@ open class ArticleStreamBlockView(context: Context) : RelativeLayout(context), B
         headline.text = block?.title
         subHeadline.text = block?.subtitle
 
-        timeView.text = convertTimeToText(block?.created)
+        timeView.text = convertTimeToText(block?.created, context)
     }
 
     override fun equals(other: Any?): Boolean {

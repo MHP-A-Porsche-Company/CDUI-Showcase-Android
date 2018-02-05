@@ -66,8 +66,7 @@ open class StreamFragment : Fragment() {
         // subscribe to new display information from the view model
         disposables.add(
                 homeViewModel.blocks.subscribeBy(onNext = {
-                    adapter.setBlocks(it)
-                    adapter.notifyDataSetChanged()
+                    adapter.updateList(it)
                 })
         )
         disposables.add(homeViewModel.title.subscribeBy { title ->
@@ -76,6 +75,5 @@ open class StreamFragment : Fragment() {
                 titleTextView.visibility = View.VISIBLE
             }
         })
-
     }
 }

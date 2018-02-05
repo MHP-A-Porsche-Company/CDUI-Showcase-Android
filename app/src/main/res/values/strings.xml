@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Showcase</string>
     <string name="foo">Foo</string>
+    <string name="block_view_years_ago">%s years ago</string>
+    <string name="block_view_months_ago">%s months ago</string>
+    <string name="block_view_days_ago">%s days ago</string>
+    <string name="block_view_hours_ago">%s hours ago</string>
+    <string name="block_view_minutes_ago">%s minutes ago</string>
+    <string name="block_view_seconds_ago">%s seconds ago</string>
 </resources>

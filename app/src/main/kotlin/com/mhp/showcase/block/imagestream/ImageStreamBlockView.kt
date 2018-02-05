@@ -37,7 +37,7 @@ open class ImageStreamBlockView(context: Context) : RelativeLayout(context), Bas
             block?.imageUrl?.let {
                 articleImageView.url = block?.imageUrl
             }
-            timeView.text = convertTimeToText(block?.created)
+            timeView.text = convertTimeToText(block?.created, context)
         }
     }
 

@@ -14,7 +14,6 @@ import org.androidannotations.annotations.ViewById
 @EViewGroup(R.layout.view_block_user)
 open class UserBlockView( context: Context) : RelativeLayout(context), BaseBlockView<UserBlock> {
 
-
     @ViewById(R.id.userView)
     protected lateinit var userView: UserView
 
