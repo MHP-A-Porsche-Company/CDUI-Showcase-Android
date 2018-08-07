@@ -42,7 +42,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginBottom="4dp"
         android:layout_marginStart="@dimen/margin_20"
-        android:text="Johannes Müller-Naumann"
+        android:text="@string/johannes_m_ller_naumann"
         android:layout_toEndOf="@id/image_container"
         android:ellipsize="end"
         android:maxLines="1"/>

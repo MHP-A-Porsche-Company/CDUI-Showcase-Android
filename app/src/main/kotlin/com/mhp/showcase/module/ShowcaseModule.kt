@@ -10,8 +10,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BaseBlock
-import com.mhp.showcase.model.view.ArticleViewModel
-import com.mhp.showcase.model.view.HomeViewModel
 import com.mhp.showcase.navigation.DefaultRouter
 import com.mhp.showcase.navigation.Router
 import com.mhp.showcase.network.GetArticleNetworkService
@@ -24,7 +22,7 @@ import javax.inject.Singleton
 @Module
 open class ShowcaseModule {
 
-    private val TAG = ShowcaseModule::class.java.simpleName
+    private val tag = ShowcaseModule::class.java.simpleName
 
     @Provides
     @Singleton
@@ -33,7 +31,7 @@ open class ShowcaseModule {
         try {
             gsonBuilder.registerTypeAdapter(BaseBlock::class.java, GsonBlockAdapter())
         } catch (e: Throwable) {
-            Log.w(TAG, "error registering type adapter for GSON deserialization", e)
+            Log.w(tag, "error registering type adapter for GSON deserialization", e)
         }
         return gsonBuilder.create()
     }
@@ -63,16 +61,6 @@ open class ShowcaseModule {
     @Provides
     protected fun getGetArticleNetworkService(): GetArticleNetworkService {
         return GetArticleNetworkService()
-    }
-
-    @Provides
-    protected fun provideHomeViewModel(): HomeViewModel {
-        return HomeViewModel()
-    }
-
-    @Provides
-    protected fun provideArticleViewModel(): ArticleViewModel {
-        return ArticleViewModel()
     }
 
     @Provides

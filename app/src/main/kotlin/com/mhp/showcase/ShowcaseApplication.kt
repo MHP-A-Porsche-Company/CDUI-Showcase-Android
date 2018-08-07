@@ -10,7 +10,7 @@ import com.mhp.showcase.module.ShowcaseComponent
  * [android.content.Context]
  */
 class ShowcaseApplication : Application() {
-    private val TAG: String = ShowcaseApplication::class.java.simpleName
+    private val tag: String = ShowcaseApplication::class.java.simpleName
 
     companion object {
         lateinit var graph: ShowcaseComponent
@@ -23,7 +23,7 @@ class ShowcaseApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         graph = DaggerShowcaseComponent.builder().build()
-        Log.d(TAG, "created dependency injection component")
+        Log.d(tag, "created dependency injection component")
     }
 
     init {

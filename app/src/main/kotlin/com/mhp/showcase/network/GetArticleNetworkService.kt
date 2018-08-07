@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class GetArticleNetworkService {
 
-    private val TAG = GetArticleNetworkService::class.java.simpleName
+    private val tag = GetArticleNetworkService::class.java.simpleName
 
     @Inject
     internal lateinit var requestQueue: RequestQueue
@@ -47,7 +47,7 @@ class GetArticleNetworkService {
                     Handler().postDelayed({ startRequesting(id, e) }, 2000)
                 },
                 Response.ErrorListener {
-                    Log.d(TAG, "Network error occurred", it)
+                    Log.d(tag, "Network error occurred", it)
                 }
         )
         jsObjRequest.setShouldCache(false)

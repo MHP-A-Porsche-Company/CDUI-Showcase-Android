@@ -21,8 +21,8 @@ interface Router {
      * the view gets inflated in
      */
     enum class RouterTarget {
-        navigation,
-        modal
+        NAVIGATION,
+        MODAL
     }
 
     /**

@@ -40,18 +40,15 @@ import java.util.*
 import javax.inject.Inject
 
 class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
-
     @Inject
-    protected lateinit var context: Context
+    lateinit var context: Context
+    private var blocks: List<BaseBlock> = ArrayList()
 
     init {
         ShowcaseApplication.graph.inject(this)
     }
 
-    private var blocks: List<BaseBlock> = ArrayList()
-
     // Definition of the different ViewHolders for each block type
-
     internal inner class ArticleStreamViewHolder(itemView: ArticleStreamBlockView) : ViewWrapper<ArticleStreamBlockView>(itemView)
     internal inner class CarouselViewHolder(itemView: CarouselBlockView) : ViewWrapper<CarouselBlockView>(itemView)
     internal inner class EventStreamViewHolder(itemView: EventStreamBlockView) : ViewWrapper<EventStreamBlockView>(itemView)
@@ -85,7 +82,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
         return blocks.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewWrapper<*>? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewWrapper<*> {
         // Return the matching ViewHolder according to the block type
         return when (viewType) {
             ViewType.EVENT_STREAM_BLOCK.value -> EventStreamViewHolder(EventStreamBlockView_.build(context))
@@ -98,18 +95,14 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
             ViewType.TEXT_HIGHLIGHT_BLOCK.value -> TextHighlightViewHolder(TextHighlightBlockView_.build(context))
             ViewType.TITLE_BLOCK.value -> TitleViewHolder(TitleBlockView_.build(context))
             ViewType.USER_BLOCK.value -> UserViewHolder(UserBlockView_.build(context))
-            else -> null
+            else -> throw IllegalArgumentException()
         }
     }
 
-    fun setBlocks(blocks: List<BaseBlock>) {
-        this.blocks = blocks
-    }
-
-    override fun onBindViewHolder(holder: ViewWrapper<*>?, position: Int) {
+    override fun onBindViewHolder(holder: ViewWrapper<*>, position: Int) {
         // set the block value to the instance of BaseBlockView inside the ViewHolder according to
         // the block type
-        when (holder?.itemViewType) {
+        when (holder.itemViewType) {
             ViewType.ARTICLE_STREAM_BLOCK.value -> (holder as ArticleStreamViewHolder).view.block = blocks[position] as ArticleStreamBlock
             ViewType.CAROUSEL_BLOCK.value -> (holder as CarouselViewHolder).view.block = blocks[position] as CarouselBlock
             ViewType.EVENT_STREAM_BLOCK.value -> (holder as EventStreamViewHolder).view.block = blocks[position] as EventStreamBlock
@@ -159,8 +152,7 @@ class BlockRecyclerViewAdapter : RecyclerViewAdapterBase<BaseBlock>() {
 
     fun updateList(blocks: List<BaseBlock>) {
         val diffResult = DiffUtil.calculateDiff(MyDiffCallback(this.blocks, blocks))
-        this.blocks = blocks
         diffResult.dispatchUpdatesTo(this)
+        this.blocks = blocks
     }
-
 }

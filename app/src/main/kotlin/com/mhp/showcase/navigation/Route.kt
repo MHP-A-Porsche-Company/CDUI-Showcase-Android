@@ -7,9 +7,9 @@ enum class Route(val value: String) {
     /**
      * Navigate to the stream space
      */
-    stream("/stream"),
+    STREAM("/stream"),
     /**
      * Navigate to the article space
      */
-    articleDetail("/article")
+    ARTICLE("/article")
 }

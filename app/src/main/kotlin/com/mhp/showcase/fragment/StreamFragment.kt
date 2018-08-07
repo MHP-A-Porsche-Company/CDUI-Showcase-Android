@@ -1,5 +1,7 @@
 package com.mhp.showcase.fragment
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -8,29 +10,21 @@ import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BlockRecyclerViewAdapter
 import com.mhp.showcase.model.view.HomeViewModel
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.ViewById
-import javax.inject.Inject
 
 @EFragment(R.layout.fragment_article)
 open class StreamFragment : Fragment() {
 
     // The area to display the blocks in
     @ViewById(R.id.block_area)
-    internal lateinit var blockArea: RecyclerView
+    protected lateinit var blockArea: RecyclerView
     @ViewById(R.id.title)
-    internal lateinit var titleTextView: TextView
+    protected lateinit var titleTextView: TextView
     // The view model to get the values to display from
-    @Inject
-    internal lateinit var homeViewModel: HomeViewModel
-
+    private lateinit var homeViewModel: HomeViewModel
     private val adapter = BlockRecyclerViewAdapter()
-
-    // to keep track on the open subscriptions
-    private val disposables: ArrayList<Disposable> = ArrayList()
 
     /**
      * Gets called after the view is inflated and the references are bound to the code
@@ -38,24 +32,10 @@ open class StreamFragment : Fragment() {
     @AfterViews
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // tell the view model to update the values
-        homeViewModel.active.onNext(true)
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         subscribeViewModel()
-
     }
 
-    override fun onPause() {
-        // tell the view model we're about to end -> no more updates needed
-        homeViewModel.active.onNext(false)
-        // clean up all pending subscriptions
-        disposables.forEach(Disposable::dispose)
-        disposables.clear()
-        super.onPause()
-    }
 
     /**
      * subscribe the view to the view model
@@ -64,14 +44,12 @@ open class StreamFragment : Fragment() {
         blockArea.adapter = adapter
 
         // subscribe to new display information from the view model
-        disposables.add(
-                homeViewModel.blocks.subscribeBy(onNext = {
-                    adapter.updateList(it)
-                })
-        )
-        disposables.add(homeViewModel.title.subscribeBy { title ->
+        homeViewModel.blocks.observe(this, Observer { blocks ->
+            blocks?.let { adapter.updateList(it) }
+        })
+        homeViewModel.title.observe(this, Observer { title ->
             this.titleTextView.text = title
-            if (title.isNotEmpty()) {
+            if (title != null && title.isNotEmpty()) {
                 titleTextView.visibility = View.VISIBLE
             }
         })

@@ -1,7 +1,6 @@
 package com.mhp.showcase.activity
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
@@ -25,18 +24,13 @@ open class MainActivity : AppCompatActivity(), Router.RouteTarget {
     @Inject
     internal lateinit var router: Router
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     @AfterViews
     protected fun afterViews() {
         ShowcaseApplication.graph.inject(this)
         router.routeTarget = this // register the current class as route target
-        router.spaceFactories.put(Route.stream, StreamSpaceFactory()) // register the stream as route
-        router.spaceFactories.put(Route.articleDetail, ArticleSpaceFactory()) // register the article detail page as route
-        router.navigate(Route.stream, null, Router.RouterTarget.navigation) // navigate to stream
+        router.spaceFactories.put(Route.STREAM, StreamSpaceFactory()) // register the stream as route
+        router.spaceFactories.put(Route.ARTICLE, ArticleSpaceFactory()) // register the article detail page as route
+        router.navigate(Route.STREAM, null, Router.RouterTarget.NAVIGATION) // navigate to stream
     }
 
     @SuppressLint("ResourceType")

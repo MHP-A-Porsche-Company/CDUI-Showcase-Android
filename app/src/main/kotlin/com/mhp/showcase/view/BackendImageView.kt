@@ -2,15 +2,15 @@ package com.mhp.showcase.view
 
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
+import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.ViewTreeObserver
-import android.widget.ImageView
 import com.koushikdutta.ion.Ion
 import com.mhp.showcase.R
 import com.mhp.showcase.ShowcaseApplication
 import java.net.URI
 
-open class BackendImageView(theContext: Context, attrs: AttributeSet?) : ImageView(theContext, attrs) {
+open class BackendImageView(theContext: Context, attrs: AttributeSet?) : AppCompatImageView(theContext, attrs) {
 
 
     var url: URI? = null

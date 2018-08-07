@@ -7,4 +7,7 @@
     <string name="block_view_hours_ago">%s hours ago</string>
     <string name="block_view_minutes_ago">%s minutes ago</string>
     <string name="block_view_seconds_ago">%s seconds ago</string>
+    <string name="event">Event</string>
+    <string name="to_the_event">to the event</string>
+    <string name="johannes_m_ller_naumann">Johannes Müller-Naumann</string>
 </resources>

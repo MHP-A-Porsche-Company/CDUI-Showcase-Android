@@ -19,8 +19,6 @@ class DefaultRouter : Router {
 
 
     override var spaceFactories: HashMap<Route, SpaceFactory<*>> = HashMap()
-        get
-        set(value) {}
 
     override var routeTarget: RouteTarget? = null
 

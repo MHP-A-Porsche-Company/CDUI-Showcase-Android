@@ -12,6 +12,4 @@ interface SpaceFactory<out T : Fragment> {
 
     fun params(from: URI): SpaceParams?
     fun build(params: SpaceParams?): T
-
-
 }

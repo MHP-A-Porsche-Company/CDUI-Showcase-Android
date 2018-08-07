@@ -8,9 +8,8 @@ abstract class RecyclerViewAdapterBase<T> : RecyclerView.Adapter<ViewWrapper<*>>
     /**
      * Set the items to be rendered
      *
-     * @param items The list of items to be rendered
      */
-    var items: List<T> = ArrayList()
+    private var items: List<T> = ArrayList()
         set(items) {
             field = items
             notifyDataSetChanged()

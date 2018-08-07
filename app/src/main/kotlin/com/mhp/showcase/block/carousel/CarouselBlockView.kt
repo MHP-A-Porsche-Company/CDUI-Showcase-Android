@@ -37,7 +37,7 @@ open class CarouselBlockView(context: Context) : LinearLayout(context), BaseBloc
             return
         }
         title.text = block!!.title
-        adapter = CarouselBlockViewAdapter(context, this.block!!.items)
+        adapter = CarouselBlockViewAdapter(context, this.block?.items!!)
         pager.clipToPadding = false
         val defaultMargin = resources.getDimensionPixelOffset(R.dimen.margin_default)
         pager.pageMargin = defaultMargin

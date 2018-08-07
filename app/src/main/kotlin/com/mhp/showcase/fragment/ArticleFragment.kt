@@ -1,5 +1,7 @@
 package com.mhp.showcase.fragment
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -10,13 +12,10 @@ import com.mhp.showcase.ShowcaseApplication
 import com.mhp.showcase.block.BlockRecyclerViewAdapter
 import com.mhp.showcase.model.view.ArticleViewModel
 import com.mhp.showcase.view.FixedAspectBackendImageView
-import io.reactivex.disposables.Disposable
-import io.reactivex.rxkotlin.subscribeBy
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EFragment
 import org.androidannotations.annotations.FragmentArg
 import org.androidannotations.annotations.ViewById
-import javax.inject.Inject
 
 /**
  * The fragment to display an article
@@ -30,39 +29,25 @@ open class ArticleFragment : Fragment() {
     @ViewById(R.id.block_area)
     internal lateinit var blockArea: RecyclerView
     @ViewById(R.id.title)
-    internal lateinit var titleTextView: TextView
-    // The view model to get the values to display from
-    @Inject
-    internal lateinit var articleViewModel: ArticleViewModel
+    lateinit var titleTextView: TextView
     // The id of the article to de displayed
     @FragmentArg("ID")
     internal lateinit var id: String
-    // to keep track on the open subscriptions
-    private val disposables: ArrayList<Disposable> = ArrayList()
     private val adapter = BlockRecyclerViewAdapter()
     private var heroHeight: Int = 0
+    // The view model to get the values to display from
+    private lateinit var articleViewModel: ArticleViewModel
 
-    override fun onResume() {
-        super.onResume()
-        // tell the view model to update the values
-        articleViewModel.id = id
-        articleViewModel.active.onNext(true)
-    }
-
-    override fun onPause() {
-        // tell the view model we're about to end -> no more updates needed
-        articleViewModel.active.onNext(false)
-        // clean up all pending subscriptions
-        disposables.forEach(Disposable::dispose)
-        disposables.clear()
-        super.onPause()
-    }
 
     /**
      * Gets called after the view is inflated and the references are bound to the code
      */
     @AfterViews
     protected fun afterViews() {
+
+        articleViewModel = ViewModelProviders.of(this).get(ArticleViewModel::class.java)
+        // tell the view model to update the values
+        articleViewModel.id = id
         ShowcaseApplication.graph.inject(this)
         subscribeViewModel()
         // get the calculated height of the inflated title image
@@ -81,10 +66,8 @@ open class ArticleFragment : Fragment() {
         // apply a parallax effect to the title image when the content scrolls
         blockArea.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                if (blockArea != null) {
-                    val c: View = blockArea.getChildAt(0)
-                    applyParallaxToTitleImage((-c.top + blockArea!!.top + heroHeight))
-                }
+                val c: View = blockArea.getChildAt(0)
+                applyParallaxToTitleImage((-c.top + blockArea.top + heroHeight))
             }
         })
     }
@@ -103,23 +86,21 @@ open class ArticleFragment : Fragment() {
      * subscribe the view to the view model
      */
     private fun subscribeViewModel() {
-        blockArea?.adapter = adapter
+        blockArea.adapter = adapter
         // subscribe to new display information from the view model
-        disposables.add(
-                articleViewModel.blocks.subscribeBy(onNext = {
-                    adapter.updateList(it)
-                })
-        )
+        articleViewModel.blocks.observe(this, Observer { blocks ->
+            blocks?.let { it -> adapter.updateList(it) }
+        })
         // subscribe to the title of the article
-        disposables.add(articleViewModel.title.subscribeBy {
+        articleViewModel.title.observe(this, Observer {
             this.titleTextView.text = it
-            if (it.isNotEmpty()) {
+            if (it != null && it.isNotEmpty()) {
                 titleTextView.visibility = View.VISIBLE
             }
 
         })
         // subscribe to the title image of the article
-        disposables.add(articleViewModel.image.subscribeBy {
+        articleViewModel.image.observe(this, Observer {
             this.heroImageView.visibility = View.VISIBLE
             this.heroImageView.url = it
         })
